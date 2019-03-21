@@ -3,21 +3,23 @@
 // @nebular out of the box themes
 @import '~@nebular/theme/styles/themes';
 
-$blue_dark: #337ab7;
-$blue_slider: #cbe0f2;
-$blue_buttons: #337ab7;
-$blue_buttons-border: #2e6da4;
-$blue_buttons-hover: #286090;
-$blue_buttons-hover-visited: #204d74;
-$blue_menu_active_background: #4c97d8;
-$blue_menu_submenu_active_background: #6ea9dd;
-$blue_text: #337ab7;
+$blue-dark: #337ab7;
+$blue-slider: #cbe0f2;
+$blue-buttons: #337ab7;
+$blue-buttons-border: #2e6da4;
+$blue-buttons-hover: #286090;
+$blue-buttons-hover-visited: #204d74;
+$blue-menu-active-background: #4c97d8;
+$blue-menu-submenu-active-background: #6ea9dd;
+$blue-text: #337ab7;
 
-$text_gray: #515151;
-$font_family: 'Raleway', Helvetica, Arial, sans-serif;
-$text_body: #333333;
-$gray_buttons: #383838;
-$footer_bg: #383838;
+$text-gray: #515151;
+$font-family: 'Raleway', Helvetica, Arial, sans-serif;
+$text-body: #333333;
+$gray-buttons: #383838;
+$footer-bg: #383838;
+
+$layout-light-blue: #c0d6e6;
 
 $white: #fff;
 $black: #000;
@@ -30,29 +32,26 @@ $nb-themes: nb-register-theme((
   sidebar-header-gap: 2rem,
   sidebar-header-height: initial,
 
-  menu-bg: $blue_slider,
-  menu-fg: $blue_buttons,
-  menu-font-family: $font_family,
-  menu-active-bg: $blue_menu_active_background,
+  menu-bg: $blue-slider,
+  menu-fg: $blue-buttons,
+  menu-font-family: $font-family,
+  menu-active-bg: $blue-menu-active-background,
   menu-active-fg: $white,
   menu-active-font-weight: 800,
-  menu-icon-color: $blue_buttons,
+  menu-icon-color: $blue-buttons,
   menu-icon-active-color: $white,
   menu-icon-font-size: 1.5rem,
 
-  menu-submenu-bg: $blue_slider,
-  menu-submenu-fg: $blue_buttons,
-  menu-submenu-active-bg: $blue_menu_submenu_active_background,
+  menu-submenu-bg: $blue-slider,
+  menu-submenu-fg: $blue-buttons,
+  menu-submenu-active-bg: $blue-menu-submenu-active-background,
   menu-submenu-active-fg: $white,
   menu-submenu-active-font-weight: 800,
-
-  // menu-submenu-active-bg:	#286090a0,
-  // menu-submenu-active-border-color: #286090a0,
-  menu-submenu-hover-fg: $blue_buttons-border,
+  menu-submenu-hover-fg: $blue-buttons-border,
 
   layout-content-width: 1400px,
 
-  font-main: $font_family,
+  font-main: $font-family,
   font-secondary: Exo,
 
   drops-icon-line-gadient: -webkit-linear-gradient(#e9e8eb, #a7a2be),
@@ -71,20 +70,16 @@ $nb-themes: nb-register-theme((
 
   progress-bar-background: linear-gradient(90deg, #ff9f6f 0%, #ff8b97 100%),
 
-  header-bg: $blue_dark,
-  header-fg: $blue_slider,
-  header-font-family: $font_family,
+  header-bg: $blue-dark,
+  header-fg: $blue-slider,
+  header-font-family: $font-family,
   header-height: 3.25rem,
   header-shadow: none,
 
-  // actions-bg: $text_body,
-  // actions-font-family: $font_family,
-  // actions-separator: $black,
-
-  btn-success-bg: $blue_buttons,
-  color-success: $blue_buttons,
-  link-color: $blue_buttons,
-  link-color-hover: $blue_buttons-hover,
-  link-color-visited: $blue_buttons-hover-visited,
+  btn-success-bg: $blue-buttons,
+  color-success: $blue-buttons,
+  link-color: $blue-buttons,
+  link-color-hover: $blue-buttons-hover,
+  link-color-visited: $blue-buttons-hover-visited,
 
 ), corporate, corporate);
