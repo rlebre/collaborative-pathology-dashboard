@@ -1,4 +1,4 @@
-export const CORPORATE_THEME = {
+export const DICOOGLE_THEME = {
   name: 'corporate',
   base: 'default',
   variables: {

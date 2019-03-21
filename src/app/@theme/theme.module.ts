@@ -44,11 +44,7 @@ import {
   FooterComponent,
   HeaderComponent,
   SearchInputComponent,
-  ThemeSettingsComponent,
-  SwitcherComponent,
-  LayoutDirectionSwitcherComponent,
   TinyMCEComponent,
-  ToggleSettingsButtonComponent,
 } from './components';
 import {
   CapitalizePipe,
@@ -61,9 +57,8 @@ import {
 import {
   SampleLayoutComponent
 } from './layouts';
-import { DEFAULT_THEME } from './styles/theme.default';
-import { COSMIC_THEME } from './styles/theme.cosmic';
-import { CORPORATE_THEME } from './styles/theme.corporate';
+
+import { DICOOGLE_THEME } from './styles/theme.dicoogle';
 
 const BASE_MODULES = [CommonModule, FormsModule, ReactiveFormsModule];
 
@@ -104,15 +99,11 @@ const NB_MODULES = [
 ];
 
 const COMPONENTS = [
-  SwitcherComponent,
-  LayoutDirectionSwitcherComponent,
   HeaderComponent,
   FooterComponent,
   SearchInputComponent,
-  ThemeSettingsComponent,
   TinyMCEComponent,
   SampleLayoutComponent,
-  ToggleSettingsButtonComponent,
 ];
 
 const PIPES = [
@@ -129,7 +120,7 @@ const NB_THEME_PROVIDERS = [
     {
       name: 'corporate',
     },
-    [ CORPORATE_THEME ],
+    [ DICOOGLE_THEME ],
   ).providers,
   ...NbSidebarModule.forRoot().providers,
   ...NbMenuModule.forRoot().providers,

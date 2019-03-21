@@ -3,24 +3,24 @@
 // @nebular out of the box themes
 @import '~@nebular/theme/styles/themes';
 
-  $blue_dark: #337ab7;
-  $blue_slider: #cbe0f2;
-  $blue_buttons: #337ab7;
-  $blue_buttons-border: #2e6da4;
-  $blue_buttons-hover: #286090;
-  $blue_buttons-hover-visited: #204d74;
-  $blue_menu_active_background: #4c97d8;
-  $blue_menu_submenu_active_background: #6ea9dd;
-  $blue_text: #337ab7;
+$blue_dark: #337ab7;
+$blue_slider: #cbe0f2;
+$blue_buttons: #337ab7;
+$blue_buttons-border: #2e6da4;
+$blue_buttons-hover: #286090;
+$blue_buttons-hover-visited: #204d74;
+$blue_menu_active_background: #4c97d8;
+$blue_menu_submenu_active_background: #6ea9dd;
+$blue_text: #337ab7;
 
-  $text_gray: #515151;
-  $font_family: "Raleway", Helvetica, Arial, sans-serif;
-  $text_body: #333333;
-  $gray_buttons: #383838;
-  $footer_bg: #383838;
+$text_gray: #515151;
+$font_family: "Raleway", Helvetica, Arial, sans-serif;
+$text_body: #333333;
+$gray_buttons: #383838;
+$footer_bg: #383838;
 
-  $white: #fff;
-  $black: #000;
+$white: #fff;
+$black: #000;
 
 // which themes you what to enable (empty to enable all)
 $nb-enabled-themes: ();
