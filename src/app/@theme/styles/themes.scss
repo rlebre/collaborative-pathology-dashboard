@@ -8,18 +8,19 @@
   $blue_buttons: #337ab7;
   $blue_buttons-border: #2e6da4;
   $blue_buttons-hover: #286090;
-  $blue_buttons-hover-border: #204d74;
+  $blue_buttons-hover-visited: #204d74;
+  $blue_menu_active_background: #4c97d8;
+  $blue_menu_submenu_active_background: #6ea9dd;
   $blue_text: #337ab7;
 
   $text_gray: #515151;
   $font_family: "Raleway", Helvetica, Arial, sans-serif;
   $text_body: #333333;
-  $text_black: #000;
-
   $gray_buttons: #383838;
-
   $footer_bg: #383838;
-  $background: #fff;
+
+  $white: #fff;
+  $black: #000;
 
 // which themes you what to enable (empty to enable all)
 $nb-enabled-themes: ();
@@ -28,13 +29,32 @@ $nb-themes: nb-register-theme((
   // app wise variables for each theme
   sidebar-header-gap: 2rem,
   sidebar-header-height: initial,
+
+  menu-bg: $blue_slider,
+  menu-fg: $blue_buttons,
+  menu-font-family: $font_family,
+  menu-active-bg: $blue_menu_active_background,
+  menu-active-fg: $white,
+  menu-active-font-weight: 800,
+  menu-icon-color: $blue_buttons,
+  menu-icon-active-color: $white,
+  menu-icon-font-size: 1.5rem,
+
+  menu-submenu-bg: $blue_slider,
+  menu-submenu-fg: $blue_buttons,
+  menu-submenu-active-bg: $blue_menu_submenu_active_background,
+  menu-submenu-active-fg: $white,
+  menu-submenu-active-font-weight: 800,
+
+  // menu-submenu-active-bg:	#286090a0,
+  // menu-submenu-active-border-color: #286090a0,
+  menu-submenu-hover-fg: $blue_buttons-border,
+
   layout-content-width: 1400px,
 
-  font-main: Roboto,
+  font-main: $font_family,
   font-secondary: Exo,
 
-  switcher-background: #2b2d34,
-  switcher-background-percentage: 14%,
   drops-icon-line-gadient: -webkit-linear-gradient(#e9e8eb, #a7a2be),
 
   list-item-border-width: 1px,
@@ -49,15 +69,22 @@ $nb-themes: nb-register-theme((
   chart-panel-summary-border-color: #ebeff1,
   chart-panel-summary-border-width: 1px,
 
-  ecommerce-card-border-width: 1px,
-
   progress-bar-background: linear-gradient(90deg, #ff9f6f 0%, #ff8b97 100%),
 
-  header-bg: $background,
-  header-fg: $text_gray,
+  header-bg: $blue_dark,
+  header-fg: $blue_slider,
   header-font-family: $font_family,
+  header-height: 3.25rem,
+  header-shadow: none,
 
-  actions-bg: $text_body,
-  actions-font-family: $font_family,
-  actions-separator: $text_black,
+  // actions-bg: $text_body,
+  // actions-font-family: $font_family,
+  // actions-separator: $black,
+
+  btn-success-bg: $blue_buttons,
+  color-success: $blue_buttons,
+  link-color: $blue_buttons,
+  link-color-hover: $blue_buttons-hover,
+  link-color-visited: $blue_buttons-hover-visited,
+
 ), corporate, corporate);
