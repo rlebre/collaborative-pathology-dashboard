@@ -55,7 +55,7 @@ import {
   EvaIconsPipe,
 } from './pipes';
 import {
-  SampleLayoutComponent
+  SampleLayoutComponent,
 } from './layouts';
 
 import { DICOOGLE_THEME } from './styles/theme.dicoogle';
