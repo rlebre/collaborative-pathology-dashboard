@@ -50,6 +50,7 @@ $nb-themes: nb-register-theme((
   menu-submenu-hover-fg: $blue-buttons-border,
 
   layout-content-width: 1400px,
+  layout-bg: $white, //atention1!!!!!!!!!
 
   font-main: $font-family,
   font-secondary: Exo,
