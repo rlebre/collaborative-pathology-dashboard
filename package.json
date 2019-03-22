@@ -43,7 +43,6 @@
     "@nebular/theme": "^3.4.1",
     "@ng-bootstrap/ng-bootstrap": "^4.1.0",
     "@swimlane/ngx-charts": "^10.1.0",
-    "angular-tree-component": "^8.3.0",
     "angular2-chartjs": "^0.5.1",
     "angular2-toaster": "^7.0.0",
     "bootstrap": "^4.3.1",
@@ -52,9 +51,8 @@
     "classlist.js": "1.1.20150312",
     "core-js": "2.5.1",
     "echarts": "^4.2.1",
-    "eva-icons": "^1.1.1",
     "intl": "1.2.5",
-    "ionicons": "^4.5.5",
+    "ionicons": "^2.0.1",
     "leaflet": "^1.4.0",
     "nebular-icons": "1.1.0",
     "ng2-ckeditor": "^1.2.2",
@@ -70,7 +68,7 @@
     "tinymce": "^5.0.3",
     "typeface-exo": "0.0.61",
     "web-animations-js": "^2.3.1",
-    "zone.js": "^0.8.29"
+    "zone.js": "^0.9.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.13.6",

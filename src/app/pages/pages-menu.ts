@@ -53,10 +53,6 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: '/pages/extra-components/alert',
       },
       {
-        title: 'Tree',
-        link: '/pages/extra-components/tree',
-      },
-      {
         title: 'Tabs',
         link: '/pages/extra-components/tabs',
       },

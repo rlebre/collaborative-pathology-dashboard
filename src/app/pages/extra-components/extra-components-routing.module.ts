@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { ExtraComponentsComponent } from './extra-components.component';
-import { TreeComponent } from './tree/tree.component';
 import { AlertComponent } from './alert/alert.component';
 import { ProgressBarComponent } from './progress-bar/progress-bar.component';
 import { SpinnerComponent } from './spinner/spinner.component';
@@ -55,10 +54,6 @@ const routes: Routes = [{
     {
       path: 'alert',
       component: AlertComponent,
-    },
-    {
-      path: 'tree',
-      component: TreeComponent,
     },
     {
       path: 'tabs',
