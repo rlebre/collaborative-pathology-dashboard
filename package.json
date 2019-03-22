@@ -98,7 +98,7 @@
     "protractor": "^5.4.2",
     "rimraf": "^2.6.3",
     "stylelint": "^9.10.1",
-    "ts-node": "3.2.2",
+    "ts-node": "^8.0.3",
     "tslint": "^5.14.0",
     "tslint-language-service": "^0.9.9",
     "typescript": "^3.2.4"
