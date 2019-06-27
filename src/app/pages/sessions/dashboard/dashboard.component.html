@@ -1,0 +1,14 @@
+
+
+<nb-card>
+  <nb-card-header>
+    Dashboard
+  </nb-card-header>
+
+  <nb-card-body>
+    <span>You own {{ nOwned }} sessions and were invited to {{ nInvited }} sessions</span>
+    <ng2-smart-table style="text-align: center !important" [settings]="settings" [source]="source" (deleteConfirm)="onDeleteConfirm($event)">
+    </ng2-smart-table>
+
+  </nb-card-body>
+</nb-card>

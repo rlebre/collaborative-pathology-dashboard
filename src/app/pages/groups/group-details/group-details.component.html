@@ -1,0 +1,75 @@
+
+<nb-card>
+  <nb-card-header>
+    <div class="header-content">
+      <div>Group {{groupName}}</div>
+      <button nbButton shape="rectangle" size="medium" status="danger" (click)="deleteGroup()">Delete Group</button>
+    </div>
+  </nb-card-header>
+  <nb-card-body>
+    <nb-tabset fullWidth>
+        <nb-tab tabTitle="Members">
+          <div class="member" *ngFor="let m of members; let i = index">
+            <nb-user [picture]="m.picture" [name]="m.email" [title]="m.firstname + ' ' + m.lastname" size="large"></nb-user>
+            <div>
+              <span>View Only</span>
+              <div class="icon">
+                <i *ngIf="m.canEdit; else elseBlock" class="nb-checkmark" [nbPopover]="icon" style="color: green;"></i>
+                <ng-template #elseBlock>
+                  <i class="icon nb-close" [nbPopover]="icon" style="color: red;"></i>
+                </ng-template>  
+              </div>
+              <nb-actions size="medium" style="display:inline-block;">
+                <nb-action icon="nb-close" (click)="removeUserPrevious(i)" nbTooltip="Remove User" nbTooltipPlacement="top" style="color: red;"></nb-action> 
+              </nb-actions>
+            </div>
+          </div>
+          
+        </nb-tab>
+        <nb-tab tabTitle="Change Settings">
+          <div class="member" *ngFor="let m of members; let i = index">
+            <input type="email" [(ngModel)]="m.email" nbInput (ngModelChange)="showSaveBtn($event)" placeholder="User Email">
+            <nb-checkbox [(ngModel)]="m.canEdit" (ngModelChange)="showSaveBtn($event)">ViewOnly</nb-checkbox>
+            <nb-actions size="medium" >
+                <nb-action icon="nb-close" (click)="removeUserPrevious(i)" nbTooltip="Remove User" nbTooltipPlacement="top"></nb-action> 
+            </nb-actions>
+          </div>
+      </nb-tab>
+    </nb-tabset>
+    
+  </nb-card-body>
+  
+</nb-card>
+
+<nb-card>
+  <nb-card-header>
+    Add more users
+  </nb-card-header>
+
+  <nb-card-body>
+    <div class="row">
+      <div class="col-sm-6 col-xs-12">
+        <ngx-add-user-widget (add)="addUser($event)"></ngx-add-user-widget>
+      </div>
+      <div class="col-sm-6 col-xs-12">
+        <div class="row" style="margin-top: 10px;" *ngFor="let user of users; let i = index">
+          <div class="input-group col-sm-6">
+            <input type="email" [(ngModel)]="user.email" nbInput fullWidth placeholder="User Email">
+          </div>
+          <nb-checkbox [(ngModel)]="user.canEdit" class="col-sm-2">ViewOnly</nb-checkbox>
+          <nb-actions class="col-sm-4" size="medium">   
+            <nb-action icon="nb-close" (click)="removeUser(i)" nbTooltip="Remove User" nbTooltipPlacement="top"></nb-action> 
+          </nb-actions>
+        </div>
+      </div>
+    </div>
+  </nb-card-body>
+
+</nb-card>
+
+<button *ngIf="showSaveButton" nbButton shape="rectangle" size="medium" status="success" (click)="saveGroup()">Save Group</button>
+
+<nb-alert status="warning" *ngIf="fewUsers" closable (close)="onCloseWarn()">
+  Groups must at least have one member !
+</nb-alert>
+

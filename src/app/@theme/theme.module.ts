@@ -46,6 +46,7 @@ import {
   SearchInputComponent,
   TinyMCEComponent,
 } from './components';
+
 import {
   CapitalizePipe,
   PluralPipe,

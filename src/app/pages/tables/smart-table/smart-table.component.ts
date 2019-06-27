@@ -15,6 +15,10 @@ import { SmartTableData } from '../../../@core/data/smart-table';
 export class SmartTableComponent {
 
   settings = {
+    actions:{
+      add: false,
+      edit: false, 
+    },
     add: {
       addButtonContent: '<i class="nb-plus"></i>',
       createButtonContent: '<i class="nb-checkmark"></i>',

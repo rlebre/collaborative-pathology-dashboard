@@ -1,0 +1,16 @@
+<nb-card>
+  <nb-card-header>Add users</nb-card-header>
+  <nb-card-body>
+    <div class="row">
+      <div class="col-sm-4 col-xs-2">
+        <button nbButton shape="rectangle" size="small" (click)="addUsers()">Add Users</button>      
+      </div>
+      <div class="col-sm-4 col-xs-6">
+        <input type="number" [(ngModel)]="usersToAdd" nbInput fullWidth placeholder="Users to add">  
+      </div>
+      <div class="col-sm-4 col-xs-4">
+        <nb-checkbox [(ngModel)]="viewOnlyAdd">View Only</nb-checkbox>
+      </div>
+    </div>
+  </nb-card-body>
+</nb-card>

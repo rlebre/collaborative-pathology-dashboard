@@ -15,8 +15,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { ThemeModule } from './@theme/theme.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+import { DeleteDialogComponent } from './pages/confirm-dialogs/delete-dialog.component';
+
+import { AuthGuard } from './services/auth-guard.service';
+
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, DeleteDialogComponent],
+  entryComponents: [DeleteDialogComponent], 
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -30,6 +35,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
   bootstrap: [AppComponent],
   providers: [
     { provide: APP_BASE_HREF, useValue: '/' },
+    AuthGuard,
   ],
 })
 export class AppModule {

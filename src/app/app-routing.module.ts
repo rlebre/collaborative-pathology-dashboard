@@ -9,10 +9,13 @@ import {
   NbResetPasswordComponent,
 } from '@nebular/auth';
 
+import { AuthGuard } from './services/auth-guard.service';
+
 const routes: Routes = [
-  { path: 'pages', loadChildren: 'app/pages/pages.module#PagesModule' },
+  { path: 'pages', canActivate: [AuthGuard], loadChildren: 'app/pages/pages.module#PagesModule'},
+  { path: 'auth', loadChildren: 'app/auth-pages/auth.module#NgxAuthModule' },
   {
-    path: 'auth',
+    path: 'auth2',
     component: NbAuthComponent,
     children: [
       {
@@ -42,11 +45,13 @@ const routes: Routes = [
     ],
   },
   { path: '', redirectTo: 'pages', pathMatch: 'full' },
+  
   { path: '**', redirectTo: 'pages' },
 ];
 
 const config: ExtraOptions = {
-  useHash: true,
+  useHash: false,
+  //enableTracing: true,
 };
 
 @NgModule({
