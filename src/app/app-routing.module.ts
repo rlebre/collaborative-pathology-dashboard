@@ -1,20 +1,22 @@
 import { ExtraOptions, RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
-import {
+
+/*import {
   NbAuthComponent,
   NbLoginComponent,
   NbLogoutComponent,
   NbRegisterComponent,
   NbRequestPasswordComponent,
   NbResetPasswordComponent,
-} from '@nebular/auth';
-
-import { AuthGuard } from './services/auth-guard.service';
+} from '@nebular/auth';*/
 
 const routes: Routes = [
-  { path: 'pages', canActivate: [AuthGuard], loadChildren: 'app/pages/pages.module#PagesModule'},
+  { path: 'main', loadChildren: 'app/main-menu/main-menu.module#MainMenuModule'},
+  { path: 'pages', loadChildren: 'app/pages/pages.module#PagesModule'},
   { path: 'auth', loadChildren: 'app/auth-pages/auth.module#NgxAuthModule' },
-  {
+  
+  //Old auth routing path keeping for reference
+  /*{
     path: 'auth2',
     component: NbAuthComponent,
     children: [
@@ -43,7 +45,7 @@ const routes: Routes = [
         component: NbResetPasswordComponent,
       },
     ],
-  },
+  },*/
   { path: '', redirectTo: 'pages', pathMatch: 'full' },
   
   { path: '**', redirectTo: 'pages' },
@@ -51,7 +53,7 @@ const routes: Routes = [
 
 const config: ExtraOptions = {
   useHash: false,
-  //enableTracing: true,
+  enableTracing: true,
 };
 
 @NgModule({

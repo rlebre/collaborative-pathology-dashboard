@@ -19,7 +19,7 @@ import { SmartTableService } from './mock/smart-table.service';
 import { MockDataModule } from './mock/mock-data.module';
 
 const socialLinks = [
-  {
+  /*{
     url: 'https://github.com/akveo/nebular',
     target: '_blank',
     icon: 'socicon-github',
@@ -33,7 +33,7 @@ const socialLinks = [
     url: 'https://twitter.com/akveo_inc',
     target: '_blank',
     icon: 'socicon-twitter',
-  },
+  },*/
   {
     link: '../google-login',
     target: '_blank',
@@ -50,7 +50,7 @@ const DATA_SERVICES = [
 
 const GOOGLE_CLIENT_ID = "664542270710-reqok1ddbdttf4t92viecuoa5qjdng6l.apps.googleusercontent.com"; 
 const GOOGLE_CLIENT_SECRET = "JEKt-guF-R2kIeMyaCWqMbcq"; 
-const url_callback: string = "http://localhost:4200/auth/google-callback";
+const url_callback: string = "http://mednat.ieeta.pt:8295/auth/google-callback";
 
 
 export class NbSimpleRoleProvider extends NbRoleProvider {

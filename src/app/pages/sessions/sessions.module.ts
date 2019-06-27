@@ -11,7 +11,9 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 // components
 import { SessionsComponent } from './sessions.component';
-import { CreateSessionComponent } from './create-session/create-session.component'; 
+import { CreateSessionComponent } from './create-session/create-session.component';
+import { TableImageEditorComponent } from './create-session/table-image-editor.component';
+
 import { DashboardComponent } from './dashboard/dashboard.component'; 
 import { TableHotjoinEditorComponent } from './dashboard/table-hotjoin-editor.component';
 import { TableUrlsEditorComponent } from './dashboard/table-urls-editor.component';
@@ -23,14 +25,16 @@ const COMPONENTS = [
   SessionsComponent,
   CreateSessionComponent, 
   DashboardComponent, 
+  TableImageEditorComponent,
   TableHotjoinEditorComponent,
   TableUrlsEditorComponent,
   SessionDetailsComponent,
 ];
 
 const ENTRYCOMPONENTS = [
+  TableImageEditorComponent,
   TableHotjoinEditorComponent,
-  TableUrlsEditorComponent
+  TableUrlsEditorComponent,
 ]
 
 const SERVICES = [

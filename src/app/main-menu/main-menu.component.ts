@@ -1,21 +1,12 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import { NbDateService } from '@nebular/theme';
+import { Component } from '@angular/core';
 
 @Component({
-  selector: 'ngx-create-session',
-  styleUrls: ['./main-menu.component.scss'],
-  templateUrl: './main-menu.component.html',
+  selector: 'ngx-components',
+  template: `
+    <ngx-sample2-layout>
+      <router-outlet></router-outlet>
+    </ngx-sample2-layout>
+  `,
 })
-export class MainMenuComponent implements OnDestroy, OnInit {
-
-  constructor(protected dateService: NbDateService<Date>) {
-
-  }
-  ngOnInit() {
-
-  }
-
-  ngOnDestroy() {
-  }
-
+export class MainMenuComponent {
 }

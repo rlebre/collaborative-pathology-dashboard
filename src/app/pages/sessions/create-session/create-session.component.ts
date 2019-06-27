@@ -1,10 +1,12 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import { NbDateService } from '@nebular/theme';
+import { LocalDataSource } from 'ng2-smart-table';
 
 import { SessionCreate } from '../../../data-models/SessionCreate'; 
 import { InvUser } from '../../../data-models/InvUser';
 import { CaseStudy } from '../../../data-models/CaseStudy';
 
+import { TableImageEditorComponent } from './table-image-editor.component';
 
 import '../../editors/ckeditor/ckeditor.loader';
 import 'ckeditor';
@@ -30,6 +32,7 @@ export class CreateSessionComponent implements OnDestroy, OnInit {
   images :CaseStudy[];
   isSingleView: boolean;
   selectedImage: CaseStudy;
+  imageSelected: boolean;
 
   users :InvUser[];
 
@@ -42,6 +45,39 @@ export class CreateSessionComponent implements OnDestroy, OnInit {
   editorData: any;
 
   editorConfig = {}
+
+  settings = {
+    actions:{
+      add: false,
+      edit: false,
+      delete: false,
+      position: 'right',
+    },
+    columns: {
+      imageUrl: {
+        title: 'Case Study',
+        type: 'custom',
+        class: 'centered',
+        filter: false,
+        sort: false,
+        width: '15%',
+        renderComponent: TableImageEditorComponent
+      },
+      seriesID: {
+        title: 'Study ID',
+        type: 'string',
+        class: 'centered'
+      },
+      studyID: {
+        title: 'Image ID', 
+        class: 'centered',
+        type: 'string',
+      },
+    },
+  };
+
+  source: LocalDataSource = new LocalDataSource();
+
 
   constructor(protected dateService: NbDateService<Date>) {
     this.users = [new InvUser("", true)];
@@ -69,10 +105,12 @@ export class CreateSessionComponent implements OnDestroy, OnInit {
     this.images[3].seriesID = 4;
     this.images[3].studyID = 4;
 
-    this.selectedImage = this.images[0];
+    this.source.load(this.images);
 
   }
   ngOnInit() {
+
+    this.imageSelected = false; 
 
     this.dropdownList = [
       { item_id: 1, item_text: 'Mumbai' },
@@ -123,9 +161,9 @@ export class CreateSessionComponent implements OnDestroy, OnInit {
     console.log(this.minStart.toString());
   }
 
-  selectImage(image: CaseStudy){
-    this.selectedImage = image;
-    this.isSingleView = true;
+  onRowSelect(event) {
+    this.selectedImage = event;
+    this.imageSelected = true;
   }
 
   

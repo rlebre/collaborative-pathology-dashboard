@@ -56,6 +56,7 @@ import {
 } from './pipes';
 import {
   SampleLayoutComponent,
+  MainSampleLayoutComponent,
 } from './layouts';
 
 import { DICOOGLE_THEME } from './styles/theme.dicoogle';
@@ -104,6 +105,7 @@ const COMPONENTS = [
   SearchInputComponent,
   TinyMCEComponent,
   SampleLayoutComponent,
+  MainSampleLayoutComponent,
 ];
 
 const PIPES = [

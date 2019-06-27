@@ -1,7 +1,7 @@
 import { Component, Input, Inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { NbMenuService, NbSidebarService, NB_WINDOW } from '@nebular/theme';
+import { NbMenuService, NbSidebarService } from '@nebular/theme';
 import { NbAuthResult, NbAuthService, NbAuthOAuth2Token } from '@nebular/auth';
 
 import { UserData } from '../../../@core/data/users';
@@ -31,8 +31,7 @@ export class HeaderComponent implements OnInit {
               private analyticsService: AnalyticsService,
               private layoutService: LayoutService,
               private router: Router,
-              private authService: NbAuthService,
-              @Inject(NB_WINDOW) private window) {
+              private authService: NbAuthService,) {
   }
 
 
@@ -93,6 +92,10 @@ export class HeaderComponent implements OnInit {
     this.menuService.navigateHome();
   }
 
+  goToLogin() {
+    this.router.navigate(['/auth/login']);
+  }
+
   startSearch() {
     this.analyticsService.trackEvent('startSearch');
   }
@@ -103,7 +106,7 @@ export class HeaderComponent implements OnInit {
         console.log(authResult);
         if(authResult.isSuccess){
           console.log("Successfully loged out.");
-          this.router.navigate(['/pages/main-menu']);
+          this.router.navigate(['/main/menu']);
         }
       });
   }

@@ -5,8 +5,6 @@ import { PagesComponent } from './pages.component';
 import { PagesRoutingModule } from './pages-routing.module';
 import { ThemeModule } from '../@theme/theme.module';
 import { MiscellaneousModule } from './miscellaneous/miscellaneous.module';
-import { SessionsModule } from './sessions/sessions.module';
-import { GroupsModule } from './groups/groups.module';
 import { UserProfileComponent } from './user/user-profile.component';
 import { TableLinkComponent } from './extra-table-components/table-link.component';
 import { TableLinkSessionComponent } from './extra-table-components/table-link-session.component';
@@ -26,8 +24,6 @@ const ENTRY_COMPONENTS = [
 
 @NgModule({
   imports: [
-    //SessionsModule,
-    //GroupsModule,
     PagesRoutingModule,
     ThemeModule,
     MiscellaneousModule,

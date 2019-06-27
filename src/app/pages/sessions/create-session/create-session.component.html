@@ -7,18 +7,12 @@
     <nb-stepper orientation="horizontal">
       <nb-step [label]="labelOne">
         <ng-template #labelOne>Pick an image</ng-template>
-        <h4>Choose a case study</h4>        
-        <div class="row">
-          <div class="member col-xs-12 col-sm-6 col-md-4" *ngFor="let c of images; let i = index">
-            <img [src]="c.imageUrl" alt="test" height="50" width="50">
-            <span>{{ c.seriesID }}</span>
-            <span>{{ c.studyID }}</span>
-            <nb-checkbox>Choose Image</nb-checkbox>
-          </div>      
-        </div>
+        <h4>Choose a case study</h4> 
+        <ng2-smart-table [settings]="settings" [source]="source" (userRowSelect)="onRowSelect($event)">
+        </ng2-smart-table>
         
         <button nbButton disabled nbStepperNext>prev</button>
-        <button nbButton nbStepperNext>next</button>
+        <button nbButton [disabled]="!imageSelected" nbStepperNext>next</button>
       </nb-step>
       <nb-step [label]="labelTwo">
         <ng-template #labelTwo>Give it a name</ng-template>
@@ -31,13 +25,14 @@
         <ng-template #labelThree>Choose its members</ng-template>
         <div class="row">
           <div class="col-sm-6">
-              <ng-multiselect-dropdown
-              [placeholder]="'custom placeholder'"
-              [data]="dropdownList"
-              [(ngModel)]="selectedItems"
-              [settings]="dropdownSettings"
-              (onSelect)="onItemSelect($event)"
-              (onSelectAll)="onSelectAll($event)"
+            <label class="label">Select a group(s):</label>
+            <ng-multiselect-dropdown
+            [placeholder]="'Pick a group'"
+            [data]="dropdownList"
+            [(ngModel)]="selectedItems"
+            [settings]="dropdownSettings"
+            (onSelect)="onItemSelect($event)"
+            (onSelectAll)="onSelectAll($event)"
             >
             </ng-multiselect-dropdown>
           </div>
@@ -94,16 +89,14 @@
 
         </div>
 
-        <h4>Write them a message</h4>
-        <div class="row">
+        <h4 style="margin-top:10px;">Write them a message</h4>
+        <div class="row" >
           <div class="col-sm-1"></div>
           <div class="col-sm-10">
             <ckeditor [(ngModel)]="editorData" [config]="editorConfig"></ckeditor>
           </div>
           <div class="col-sm-1"></div>
         </div>
-
-        <button nbButton (click)="printEditor()">prev</button>
 
         <button nbButton nbStepperPrevious>prev</button>
         <button nbButton disabled nbStepperNext>next</button>
