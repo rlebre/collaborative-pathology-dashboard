@@ -8,6 +8,8 @@ import { TableLinkSessionComponent } from '../../extra-table-components/table-li
 import { NbDialogService } from '@nebular/theme';
 import { LocalDataSource } from 'ng2-smart-table';
 
+import { DashboardService } from '../../../services/dashboard.service';
+
 @Component({
   selector: 'ngx-dashboard',
   styleUrls: ['./dashboard.component.scss'],
@@ -16,16 +18,8 @@ import { LocalDataSource } from 'ng2-smart-table';
 export class DashboardComponent implements OnDestroy {
 
   nOwned :number = 0; 
-  nInvited:number = 10; 
+  nInvited:number = 0; 
   nRead:number = 0; 
-
-  data :any = [
-    {"sessionname": "group1", "sessionHash": "ababab", "owner": "r.jesus417@gmail.com", "allowHotJoin": true, "urls": ["asdsad", "asdsad"]},
-    {"sessionname": "group1", "sessionHash": "ababab", "owner": "r.jesus417@gmail.com", "allowHotJoin": true, "urls": ["asdsad", "asdsad"]},
-    {"sessionname": "group1", "sessionHash": "ababab", "owner": "r.jesus417@gmail.com", "allowHotJoin": false, "urls": ["asdsad", "asdsad"]},
-  ]; 
-
-  buttonUrls: any = ["aaa","aaa","aaa"]; 
 
   settings = {
     actions:{
@@ -38,13 +32,13 @@ export class DashboardComponent implements OnDestroy {
       confirmDelete: true,
     },
     columns: {
-      sessionname: {
+      name: {
         title: 'Session Name',
         type: 'custom',
         class: 'centered',
         renderComponent: TableLinkSessionComponent
       },
-      owner: {
+      ownedBy: {
         title: 'Session Creator',
         type: 'string',
         class: 'centered'
@@ -69,8 +63,21 @@ export class DashboardComponent implements OnDestroy {
 
   source: LocalDataSource = new LocalDataSource();
 
-  constructor(private dialogService: NbDialogService) {
-    this.source.load(this.data);
+  constructor(private dialogService: NbDialogService, private dahsboardService: DashboardService) {
+    //this.source.load(this.data);
+  }
+
+  ngOnInit(){
+
+    this.dahsboardService.getSessions().subscribe(
+      (res: any) => {
+        this.source.load(res["data"]["owned"]);
+        this.nInvited = res["data"]["nInvited"];
+        this.nOwned = res["data"]["nOwned"];
+      }, 
+      (err: any) => {console.log(err); this.source.load([])}
+    );
+
   }
 
   onDeleteConfirm(event) {

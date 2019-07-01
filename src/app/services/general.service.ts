@@ -22,6 +22,16 @@ export class GeneralService {
     return this.http.post(this.google_sign_in_url, fd, httpOptions);
   }
 
+
+  verifyOrCreateGoogleUser(token: any): Observable<any>{
+    let customHeaders = new HttpHeaders();
+    customHeaders = customHeaders.set('Content-type', 'application/json');
+    customHeaders = customHeaders.set('Access_token', token);
+
+    let customOptions = {headers: customHeaders};
+    return this.http.get(this.google_sign_in_url, customOptions);
+  }
+
   getGoogleUserData(token: any): Observable<any>{
     return this.http.get(this.google_api_user_data_url + token, httpOptions)
   }

@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
     styles: [`
@@ -25,18 +26,20 @@ export class TableUrlsEditorComponent implements OnInit {
 
     @Input() value: any;
 
+    constructor(private router: Router){
+
+    }
+
     ngOnInit() { 
+        console.log(this.value);
     }
 
     joinSession(){
-        location.href = "http://www.youtube.com";
-        console.log(this.value[0]); 
+        window.location.href= this.value[0];
     }
 
     replaySession(){
-        console.log(this.value[1]); 
-        console.log("aaaa");
-        //location.href = "http://www.youtube.com";
+        window.location.href= this.value[1];
     }
 
 

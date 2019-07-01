@@ -89,7 +89,7 @@ export const NB_CORE_PROVIDERS = [
         authorize: {
           endpoint: 'https://accounts.google.com/o/oauth2/v2/auth',
           responseType: NbOAuth2ResponseType.TOKEN,
-          scope: 'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email',
+          scope: 'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/plus.login',
           redirectUri: url_callback,
         },
       }),

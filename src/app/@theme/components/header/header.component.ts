@@ -21,7 +21,6 @@ export class HeaderComponent implements OnInit {
 
   user: any;
   loggedIn: boolean; 
-  token: NbAuthOAuth2Token;
 
   userMenu = [{ title: 'Profile' }, { title: 'Log out' }];
 
@@ -52,19 +51,19 @@ export class HeaderComponent implements OnInit {
 
     this.authService.onTokenChange()
       .subscribe((token: NbAuthOAuth2Token) => {
-        this.token = null;
         if (token && token.isValid()) {
-          this.token = token;
           this.loggedIn = true;
+          //this.user = JSON.parse(sessionStorage.getItem('user'));
         }
         else{
           this.loggedIn = false;
         }
-        
       });
 
-    this.userService.getUsers()
-      .subscribe((users: any) => this.user = users.nick);
+      //If user is logged in, token exists therefore we can get his name and picture
+      if(this.loggedIn){
+        this.user = this.authService.getToken()['value']['payload']['user'];
+      }
 
     this.menuService.onItemClick()
       .pipe(

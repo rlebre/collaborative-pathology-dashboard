@@ -20,6 +20,7 @@ import { TableUrlsEditorComponent } from './dashboard/table-urls-editor.componen
 import { SessionDetailsComponent } from './session-details/session-details.component';
 
 // service
+import { DashboardService } from '../../services/dashboard.service';
 
 const COMPONENTS = [
   SessionsComponent,
@@ -38,6 +39,7 @@ const ENTRYCOMPONENTS = [
 ]
 
 const SERVICES = [
+  DashboardService,
 ];
 
 const MODULES = [
