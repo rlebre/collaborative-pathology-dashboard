@@ -1,14 +1,9 @@
 <nb-card>
   <nb-card-header>{{ title }}</nb-card-header>
   <nb-card-body>
-    <div *ngIf="type == 0 else sessionBlock;">
+    <div>
         You sure you want to delete group {{ name }}
     </div>
-    <ng-template #sessionBlock>
-        <div>
-            You sure you want to delete session {{ name }}
-        </div>
-    </ng-template>
     
   </nb-card-body>
   <nb-card-footer>

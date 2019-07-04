@@ -8,6 +8,10 @@ import { MiscellaneousModule } from './miscellaneous/miscellaneous.module';
 import { UserProfileComponent } from './user/user-profile.component';
 import { TableLinkComponent } from './extra-table-components/table-link.component';
 import { TableLinkSessionComponent } from './extra-table-components/table-link-session.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AddHeaderInterceptor } from '../services/AddHeaderInterceptor.service';
+
+
 
 const PAGES_COMPONENTS = [
   PagesComponent,

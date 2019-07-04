@@ -2,13 +2,14 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import { UserData } from '../../../@core/data/users';
 import {ActivatedRoute} from '@angular/router';
 
-import { DeleteDialogComponent } from '../../confirm-dialogs/delete-dialog.component';
+import { DeleteDialogComponent } from '../confirm-dialogs/delete-dialog.component';
 
 import { Group } from '../../../data-models/Group'; 
 import { InvUser } from '../../../data-models/InvUser'; 
 import { UserDetails } from '../../../data-models/UserDetails'; 
 
 import { NbDialogService } from '@nebular/theme';
+import { GroupsService } from '../../../services/groups.service';
 
 @Component({
   selector: 'ngx-group-details',
@@ -27,23 +28,30 @@ export class GroupDetailsComponent implements OnInit, OnDestroy {
 
   constructor(private route: ActivatedRoute,
               private userService: UserData, 
-              private dialogService: NbDialogService) {
+              private dialogService: NbDialogService, 
+              private groupsService: GroupsService) {
 
     this.users = [];
+    this.group = new Group();
 
     this.fewUsers = false; 
     this.showSaveButton = false; 
 
     this.groupId = this.route.snapshot.paramMap.get('id');
-
-    let mock_data: UserDetails[] = [
-      {email: "aaa@gmail.com", firstname: "Rui", lastname: "Jesus", canEdit: false, picture: "assets/images/jack.png"}
-      ,{email: "aaa@gmail.com", firstname: "Rui", lastname: "Jesus", canEdit: true, picture: "assets/images/jack.png"}
-    ];
-    this.members = mock_data; 
+ 
   }
 
   ngOnInit() {
+    this.groupsService.getGroupDetails(this.groupId).subscribe( 
+      (res: any)=>{
+        this.members = res.data.users;
+        this.groupName = res.data.groupname;
+        console.log(res);
+      }, 
+      (err: any)=>{
+        console.log(err);
+      } 
+    );
 
   }
 
@@ -59,7 +67,7 @@ export class GroupDetailsComponent implements OnInit, OnDestroy {
   }
 
   removeUser(index: number){
-    if(this.users.length > 1)
+    if( (this.users.length + this.members.length) > 1)
       this.users.splice(index,1);
     else
       this.fewUsers = true; 
@@ -80,8 +88,7 @@ export class GroupDetailsComponent implements OnInit, OnDestroy {
     this.dialogService.open(DeleteDialogComponent, {
       context: {
         title: 'Confirm',
-        type: 0,
-        name: "group " + this.groupName, 
+        name: this.groupName,
       },
     });
   }
@@ -94,6 +101,14 @@ export class GroupDetailsComponent implements OnInit, OnDestroy {
       });
     });
     console.log(this.users); 
+    this.group.setGroupName(this.groupName);
+    this.group.setUsers(this.members);
+    this.groupsService.updateGroup(this.group).subscribe(
+      (res: any) => {
+        //Show success msg or smth
+      }, 
+      (err: any) => {console.log(err)}, 
+    );
     //call service to update this group
   }
 

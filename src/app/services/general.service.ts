@@ -5,7 +5,8 @@ import { HttpClient, HttpHeaders} from '@angular/common/http';
 import * as globals from './globals'; //<==== this one
 
 const httpOptions ={
-  headers: new HttpHeaders({'Content-type': 'application/json'})
+  headers: new HttpHeaders({'Content-type': 'application/json'}), 
+  withCredentials: true,
 };
 
 @Injectable()
@@ -30,6 +31,10 @@ export class GeneralService {
 
     let customOptions = {headers: customHeaders};
     return this.http.get(this.google_sign_in_url, customOptions);
+  }
+
+  logout(): Observable<any>{
+    return this.http.get(globals.logout_url, httpOptions);
   }
 
   getGoogleUserData(token: any): Observable<any>{

@@ -15,14 +15,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { ThemeModule } from './@theme/theme.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { DeleteDialogComponent } from './pages/confirm-dialogs/delete-dialog.component';
-
 import { AuthGuard } from './services/auth-guard.service';
 import { AddHeaderInterceptor } from './services/AddHeaderInterceptor.service';
+import { GeneralService } from './services/general.service';
 
 @NgModule({
-  declarations: [AppComponent, DeleteDialogComponent],
-  entryComponents: [DeleteDialogComponent], 
+  declarations: [AppComponent],
+  //entryComponents: [DeleteDialogComponent], 
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -35,13 +34,14 @@ import { AddHeaderInterceptor } from './services/AddHeaderInterceptor.service';
   ],
   bootstrap: [AppComponent],
   providers: [
-    { provide: APP_BASE_HREF, useValue: '/' },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AddHeaderInterceptor ,
       multi: true
     },
+    { provide: APP_BASE_HREF, useValue: '/' },
     AuthGuard,
+    GeneralService,
   ],
 })
 export class AppModule {

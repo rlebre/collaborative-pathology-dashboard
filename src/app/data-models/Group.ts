@@ -1,5 +1,19 @@
 import {InvUser} from './InvUser'; //<==== this one
 
 export class Group {
-    constructor( public groupname: string, public users: InvUser[]){}
+
+    users: InvUser[];
+    groupname: string;
+
+    constructor(){
+    }
+
+    setUsers(users: InvUser[]){
+        this.users = users;
+    }
+
+    setGroupName(groupname: string){
+        this.groupname = groupname;
+    }
+
 }

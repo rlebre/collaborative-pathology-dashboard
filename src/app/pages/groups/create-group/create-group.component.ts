@@ -1,6 +1,6 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 
-import { CreateGroupService } from '../../../services/create-group.service';
+import { GroupsService } from '../../../services/groups.service';
 
 import { Group } from '../../../data-models/Group';
 import { InvUser } from '../../../data-models/InvUser';
@@ -18,13 +18,14 @@ export class CreateGroupComponent implements OnInit, OnDestroy {
   usersToAdd: number;
   viewOnlyAdd: boolean;
   fewUsers: boolean;
+  groupCreatedSuccess: boolean;
 
-  constructor(private createGroupService: CreateGroupService) {
+  constructor(private groupsService: GroupsService) {
     this.users = [new InvUser("", true)];
 
     this.usersToAdd = 1;
     this.viewOnlyAdd = false;
-    this.fewUsers = false;  
+    this.fewUsers = false;
   }
 
   ngOnInit() {
@@ -50,13 +51,15 @@ export class CreateGroupComponent implements OnInit, OnDestroy {
   }
 
   sendGroup(){
-    this.group = new Group(this.groupName, this.users); 
-    console.log(JSON.stringify(this.group)); 
-    console.log(this.group.groupname); 
-    console.log(this.group.users); 
-    //this.createGroupService.postGroup(this.group).subscribe(theme => {
-    //  console.log("Received stuff from the service: " + theme);
-    //});
+    this.group = new Group();
+    this.group.setGroupName(this.groupName);this.group.setUsers(this.users); 
+    this.groupsService.postGroup(this.group).subscribe((res: any) => {
+      if(res.success){
+        console.log("Successfully created group");
+        this.groupCreatedSuccess = true;
+      }
+    }, 
+    (err: any) => {console.log(err)});
   }
 
   onCloseWarn(){

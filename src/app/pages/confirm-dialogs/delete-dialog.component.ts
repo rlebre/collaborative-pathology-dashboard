@@ -2,6 +2,8 @@ import { Component, Input } from '@angular/core';
 import { NbDialogRef } from '@nebular/theme';
 import { Router } from '@angular/router';
 
+import { GroupsService } from '../../services/groups.service';
+
 @Component({
   selector: 'ngx-delete-dialog',
   templateUrl: 'delete-dialog.component.html',
@@ -20,7 +22,9 @@ export class DeleteDialogComponent {
   //Table event
   @Input() event: any; 
   
-  constructor(protected ref: NbDialogRef<DeleteDialogComponent>, private router: Router,) {
+  constructor(protected ref: NbDialogRef<DeleteDialogComponent>, 
+    private router: Router,
+    private groupsService: GroupsService) {
 
   }
 
@@ -33,10 +37,21 @@ export class DeleteDialogComponent {
       this.event.confirm.resolve();
     else{
       if(this.type == 0){
-        this.router.navigate(['../../my-groups']);
+        this.groupsService.deleteGroup(this.name).subscribe(
+          (res: any) => {
+            if(res.success){
+              console.log("Group deleted with success");
+              this.ref.close(); 
+              this.router.navigate(['../../my-groups']);
+            }
+            else{
+              //Deal with failure
+              this.ref.close(); 
+            }
+          }, 
+          (err: any) => { console.log(err); this.ref.close(); }
+        );
       }
     }
-    //call delete event service
-    this.ref.close(); 
   }
 }

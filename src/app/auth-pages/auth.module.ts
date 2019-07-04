@@ -19,8 +19,6 @@ import { NgxRegisterComponent } from './register/register.component';
 import { NbOAuth2LoginComponent } from './google-login/google-login.component';
 import { OAuth2CallbackComponent } from './google-login/google-login-callback.component';
 
-import { GeneralService } from './../services/general.service';
-
 @NgModule({
   imports: [
     CommonModule,
@@ -41,7 +39,7 @@ import { GeneralService } from './../services/general.service';
     NbOAuth2LoginComponent,
     OAuth2CallbackComponent
   ],
-  providers: [GeneralService],
+  providers: [],
 })
 export class NgxAuthModule {
 }

@@ -12,10 +12,12 @@ import { GroupsComponent } from './groups.component';
 import { CreateGroupComponent } from './create-group/create-group.component';
 import { MyGroupsComponent } from './my-groups/my-groups.component';
 import { GroupDetailsComponent } from './group-details/group-details.component';
-import { TableGroupsEditorComponent } from './my-groups/table-groups-editor.component'; 
+import { TableGroupsEditorComponent } from './my-groups/table-groups-editor.component';
+import { DeleteDialogComponent } from './confirm-dialogs/delete-dialog.component';
 
 // services
-import { CreateGroupService } from '../../services/create-group.service'; 
+import { GroupsService } from '../../services/groups.service'; 
+import { NbDialogModule } from '@nebular/theme';
 
 const COMPONENTS = [
   GroupsComponent,
@@ -23,22 +25,25 @@ const COMPONENTS = [
   MyGroupsComponent, 
   GroupDetailsComponent,
   TableGroupsEditorComponent,
+  DeleteDialogComponent
 ];
 
 const SERVICES = [
-  CreateGroupService, 
+  GroupsService, 
 ];
 
 const MODULES = [
   ThemeModule,
   Ng2SmartTableModule,
   GroupsRoutingModule,
-  ToasterModule.forRoot(),
-  WidgetsModule
+  ToasterModule.forChild(),
+  NbDialogModule.forChild(),
+  WidgetsModule,
 ];
 
 const ENTRYCOMPONENTS = [
   TableGroupsEditorComponent, 
+  DeleteDialogComponent
 ]; 
 
 @NgModule({

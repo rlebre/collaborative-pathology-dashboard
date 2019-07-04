@@ -31,6 +31,10 @@
   Groups must at least have one member !
 </nb-alert>
 
+<nb-alert status="success" *ngIf="groupCreatedSuccess" closable>
+  Success you created a group.
+</nb-alert>
+
 
 <!--
   <button (click)="widget.addUser('col-sm-4', 'col-sm-4', 'col-sm-4')">Add User</button>

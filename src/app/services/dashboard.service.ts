@@ -5,7 +5,8 @@ import { HttpClient, HttpHeaders} from '@angular/common/http';
 import * as globals from './globals'; //<==== this one
 
 const httpOptions ={
-  headers: new HttpHeaders({'Content-type': 'text/plain'}),
+  headers: new HttpHeaders({'Content-type': 'application/json'}),
+  withCredentials: true
 };
 
 @Injectable()

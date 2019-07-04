@@ -27,9 +27,10 @@ export class OAuth2CallbackComponent implements OnDestroy {
           this.generalService.verifyOrCreateGoogleUser(authResult["response"]["access_token"]).subscribe(
             (userData: any) => {
               //handle results from backend here
-              let user = {'name': userData.personal_information.firstname, 'picture': userData.personal_information.photo_url};
+              let user = {'name': userData.personal_information.firstname, 'photo_url': userData.photo_url};
               authResult['token']['payload']['user'] = user;
               this.tokenService.set(authResult.getToken());
+              console.log("asbdjasbd");
               this.router.navigate(['/']);
             }, 
             (error: any) => {

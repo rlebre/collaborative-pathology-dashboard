@@ -7,6 +7,7 @@ import { NbAuthResult, NbAuthService, NbAuthOAuth2Token } from '@nebular/auth';
 import { UserData } from '../../../@core/data/users';
 import { AnalyticsService } from '../../../@core/utils';
 import { LayoutService } from '../../../@core/utils';
+import { GeneralService } from '../../../services/general.service';
 
 import { filter, map, tap } from 'rxjs/operators';
 
@@ -30,7 +31,8 @@ export class HeaderComponent implements OnInit {
               private analyticsService: AnalyticsService,
               private layoutService: LayoutService,
               private router: Router,
-              private authService: NbAuthService,) {
+              private authService: NbAuthService,
+              private generalService: GeneralService) {
   }
 
 
@@ -63,6 +65,7 @@ export class HeaderComponent implements OnInit {
       //If user is logged in, token exists therefore we can get his name and picture
       if(this.loggedIn){
         this.user = this.authService.getToken()['value']['payload']['user'];
+        console.log(this.user);
       }
 
     this.menuService.onItemClick()
@@ -100,14 +103,25 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
-    this.authService.logout('google')
-      .subscribe((authResult: NbAuthResult) => {
-        console.log(authResult);
-        if(authResult.isSuccess){
-          console.log("Successfully loged out.");
-          this.router.navigate(['/main/menu']);
+    this.generalService.logout().subscribe( 
+      (res: any) => {
+        if(res['success']){
+          this.authService.logout('google').subscribe(
+            (authResult: NbAuthResult) => {
+              if(authResult.isSuccess){
+                //Both the logout from the backend and frontend worked
+                console.log("Successfully loged out.");
+                this.router.navigate(['/main/menu']);
+              }
+            }
+          );
         }
-      });
+      }, 
+      (err: any) => {
+        //Logout failed in backend
+        console.log("Logout failed in backend");
+        console.log(err);
+      }
+    ); 
   }
-
 }

@@ -3,7 +3,7 @@ import { NbMenuItem } from '@nebular/theme';
 export const MENU_ITEMS: NbMenuItem[] = [
   {
     title: 'Sessions',
-    icon: 'nb-home',
+    icon: 'fas fa-users',
     children: [
       {
         title: 'Overview',
@@ -18,7 +18,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
   },
   {
     title: 'Groups',
-    icon: 'nb-home',
+    icon: 'fas fa-users-cog',
     children: [
       {
         title: 'Create Group',
