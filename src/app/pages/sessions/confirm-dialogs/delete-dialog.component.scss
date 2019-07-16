@@ -1,0 +1,7 @@
+@import '../../../@theme/styles/themes.scss'; 
+
+@include nb-install-component() {
+  .btn-danger {
+    margin-left: 1rem;
+  }
+}

@@ -10,12 +10,12 @@
     <nb-tabset fullWidth>
         <nb-tab tabTitle="Members">
           <div class="member" *ngFor="let m of members; let i = index">
-            <nb-user *ngIf="!m.anonymous else anonUser" [picture]="m.photo_url" [name]="m.email" [title]="m.firstname + ' ' + m.lastname" size="large">
+            <nb-user *ngIf="!user_details[i].anonymous else anonUser" [picture]="user_details[i].photo_url" [name]="m.email" [title]="user_details[i].firstname + ' ' + user_details[i].lastname" size="large">
             </nb-user>
             <ng-template #anonUser>
-                <nb-user *ngIf="m.anonymous" nbTooltip="This user might not be registered" nbTooltipPlacement="top"
+                <nb-user *ngIf="user_details[i].anonymous" nbTooltip="This user might not be registered" nbTooltipPlacement="top"
                 badgeStatus="warning" badgeText="?" 
-                [picture]="m.photo_url" [name]="m.email" [title]="m.firstname + ' ' + m.lastname" size="large">
+                [picture]="user_details[i].photo_url" [name]="m.email" [title]="user_details[i].firstname + ' ' + user_details[i].lastname" size="large">
                 </nb-user>
             </ng-template> 
             

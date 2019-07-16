@@ -1,1 +1,43 @@
-<div> Hello </div>
+<nb-card>
+    <nb-card-header>
+        <div class="header-content">
+            <div>Your Profile</div>
+        </div>
+    </nb-card-header>
+    <nb-card-body>
+        <form (ngSubmit)="onSubmit()">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="profile-img">
+                        <img [src]="imageSrc" alt=""/>
+                        <div class="file btn btn-lg btn-primary">
+                            Change Photo
+                            <input type="file" name="avatar" (change)="onFileChanged($event)"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <h5>Edit your profile</h5>
+                    
+                        <div class="form-group">
+                            <label for="email">Email address</label>
+                            <input type="email" class="form-control" 
+                            id="email" placeholder="Email" name="email" [(ngModel)]="user.email">
+                        </div>
+                        <div class="form-group">
+                            <label for="firstname">First Name</label>
+                            <input type="text" class="form-control"
+                            id="firstname" placeholder="First Name" name="firstname" [(ngModel)]="user.firstname">
+                        </div>
+                        <div class="form-group">
+                            <label for="lastname">Last Name</label>
+                            <input type="text" class="form-control"
+                            id="lastname" placeholder="Last Name" name="lastname" [(ngModel)]="user.lastname">    
+                        </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-danger">Submit</button>
+        </form>
+           
+    </nb-card-body>
+</nb-card>

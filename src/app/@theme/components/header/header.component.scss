@@ -34,7 +34,7 @@
     width: auto;
 
     .navigation {
-      @include nb-ltr(padding-right, nb-theme(padding));
+      //@include nb-ltr(padding-right, nb-theme(padding));
       @include nb-rtl(padding-left, nb-theme(padding));
       font-size: 2.5rem;
       text-decoration: none;
@@ -56,10 +56,14 @@
       @include nb-ltr(border-left, 1px solid nb-theme(separator));
       @include nb-rtl(border-right, 1px solid nb-theme(separator));
       white-space: nowrap;
+      cursor: pointer;
 
       span {
         font-weight: 600;
       }
+    }
+    .logo:hover{
+      color: rgb(219, 239, 253);
     }
   }
 
@@ -180,9 +184,11 @@
     }
   }
 
+  //This was hiding the user icon when on small devices. Some padding changes above created space for this
+  /*
   @include media-breakpoint-down(xs) {
     .right /deep/ {
-      display: none;
+      //display: none;
     }
-  }
+  }*/
 }

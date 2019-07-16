@@ -17,6 +17,7 @@ import { DeleteDialogComponent } from './confirm-dialogs/delete-dialog.component
 
 // services
 import { GroupsService } from '../../services/groups.service'; 
+import { ToastrService } from '../../services/toastr.service';
 import { NbDialogModule } from '@nebular/theme';
 
 const COMPONENTS = [
@@ -29,7 +30,8 @@ const COMPONENTS = [
 ];
 
 const SERVICES = [
-  GroupsService, 
+  GroupsService,
+  ToastrService,
 ];
 
 const MODULES = [

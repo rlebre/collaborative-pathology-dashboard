@@ -14,7 +14,7 @@ import { NbToastStatus } from '@nebular/theme/components/toastr/model';
 import { NbDialogService, NbGlobalLogicalPosition, NbGlobalPhysicalPosition, NbGlobalPosition, NbToastrService } from '@nebular/theme';
 
 import { GroupsService } from '../../../services/groups.service';
-
+import { ToastrService } from '../../../services/toastr.service';
 
 @Component({
   selector: 'ngx-my-groups',
@@ -24,20 +24,6 @@ import { GroupsService } from '../../../services/groups.service';
 export class MyGroupsComponent implements OnDestroy {
 
   event :any; 
-
-  config: ToasterConfig;
-
-  index = 1;
-  destroyByClick = true;
-  duration = 3500;
-  hasIcon = true;
-  position: NbGlobalPosition = NbGlobalPhysicalPosition.TOP_RIGHT;
-  preventDuplicates = false;
-  status: NbToastStatus = NbToastStatus.SUCCESS;
-
-  title = 'Success!';
-  content = `You deleted the group!`;
-
 
   settings = {
     actions:{
@@ -70,7 +56,7 @@ export class MyGroupsComponent implements OnDestroy {
   constructor(private route: ActivatedRoute,
     private dialogService: NbDialogService, 
     private groupsService: GroupsService,
-    private toastrService: NbToastrService) {
+    private toastrService: ToastrService) {
   }
 
   ngOnInit(){
@@ -85,9 +71,8 @@ export class MyGroupsComponent implements OnDestroy {
     );
 
     //Check if we came from a groups page that was deleted
-    console.log(this.route.snapshot.paramMap.get('deleted'));
     if(this.route.snapshot.paramMap.get('deleted')){
-      this.makeToast();   
+      this.toastrService.makeSuccessToastr("Success", "Group deleted successfully");   
     }
   }
 
@@ -101,32 +86,10 @@ export class MyGroupsComponent implements OnDestroy {
     }).onClose.subscribe( success => {
           if(success){
             //show toast
-            this.makeToast();   
+            this.toastrService.makeSuccessToastr("Success", "Group deleted successfully");   
           }
         }
       );
-  }
-
-  makeToast() {
-    this.showToast(this.status, this.title, this.content);
-  }
-
-  private showToast(type: NbToastStatus, title: string, body: string) {
-    const config = {
-      status: type,
-      destroyByClick: this.destroyByClick,
-      duration: this.duration,
-      hasIcon: this.hasIcon,
-      position: this.position,
-      preventDuplicates: this.preventDuplicates,
-    };
-    const titleContent = title ? `. ${title}` : '';
-
-    this.index += 1;
-    this.toastrService.show(
-      body,
-      `Toast ${this.index}${titleContent}`,
-      config);
   }
 
   ngOnDestroy() {

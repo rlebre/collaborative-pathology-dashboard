@@ -86,9 +86,10 @@
 <section *ngIf="socialLinks && socialLinks.length > 0" class="links" aria-label="Social sign in">
   or enter with:
   <div class="socials">
+    <!--[routerLink]="socialLink.link"-->
     <ng-container *ngFor="let socialLink of socialLinks">
-      <a *ngIf="socialLink.link"
-         [routerLink]="socialLink.link"
+      <a style="cursor: pointer;" title="Google" *ngIf="socialLink.link"
+          (click)="loginGoogle()"
          [attr.target]="socialLink.target"
          [attr.class]="socialLink.icon"
          [class.with-icon]="socialLink.icon">{{ socialLink.title }}</a>

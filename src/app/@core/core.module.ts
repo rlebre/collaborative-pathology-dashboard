@@ -38,6 +38,7 @@ const socialLinks = [
     link: '../google-login',
     target: '_blank',
     icon: 'socicon-google',
+    click: 'loginGoogle()',
   },
 ];
 

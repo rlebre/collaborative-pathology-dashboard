@@ -8,6 +8,11 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { CKEditorModule } from 'ng2-ckeditor';
 import { WidgetsModule } from '../../widgets/widgets.module';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
+import { FormsModule } from '@angular/forms';
+import { NbDialogModule } from '@nebular/theme';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+
 
 // components
 import { SessionsComponent } from './sessions.component';
@@ -19,8 +24,12 @@ import { TableHotjoinEditorComponent } from './dashboard/table-hotjoin-editor.co
 import { TableUrlsEditorComponent } from './dashboard/table-urls-editor.component';
 import { SessionDetailsComponent } from './session-details/session-details.component';
 
+import { TravelDialogComponent } from './confirm-dialogs/travel-dialog.component';
+import { DeleteDialogComponent } from './confirm-dialogs/delete-dialog.component';
+
 // service
-import { DashboardService } from '../../services/dashboard.service';
+import { SessionsService } from '../../services/sessions.service';
+import { ToastrService } from '../../services/toastr.service';
 
 const COMPONENTS = [
   SessionsComponent,
@@ -30,16 +39,21 @@ const COMPONENTS = [
   TableHotjoinEditorComponent,
   TableUrlsEditorComponent,
   SessionDetailsComponent,
+  TravelDialogComponent,
+  DeleteDialogComponent
 ];
 
 const ENTRYCOMPONENTS = [
   TableImageEditorComponent,
   TableHotjoinEditorComponent,
   TableUrlsEditorComponent,
+  TravelDialogComponent,
+  DeleteDialogComponent,
 ]
 
 const SERVICES = [
-  DashboardService,
+  SessionsService,
+  ToastrService
 ];
 
 const MODULES = [
@@ -50,6 +64,10 @@ const MODULES = [
   WidgetsModule,
   CKEditorModule,
   NgMultiSelectDropDownModule.forRoot(),
+  AngularMultiSelectModule, 
+  FormsModule,
+  NbDialogModule.forChild(),OwlDateTimeModule,
+  OwlNativeDateTimeModule,
 ];
 
 @NgModule({

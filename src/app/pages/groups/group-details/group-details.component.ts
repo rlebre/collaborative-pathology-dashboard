@@ -10,6 +10,7 @@ import { UserDetails } from '../../../data-models/UserDetails';
 
 import { NbDialogService } from '@nebular/theme';
 import { GroupsService } from '../../../services/groups.service';
+import { ToastrService } from '../../../services/toastr.service';
 
 @Component({
   selector: 'ngx-group-details',
@@ -19,16 +20,17 @@ import { GroupsService } from '../../../services/groups.service';
 export class GroupDetailsComponent implements OnInit, OnDestroy {
 
   private groupId:string; 
-  members: UserDetails[];
-  users :InvUser[]; 
+  members: InvUser[];
+  user_details: any[];
+  users :InvUser[];
   group :Group; 
   groupName: string; 
   fewUsers: boolean; 
   showSaveButton: boolean;
 
   constructor(private route: ActivatedRoute,
-              private userService: UserData, 
               private dialogService: NbDialogService, 
+              private toastrService: ToastrService,
               private groupsService: GroupsService) {
 
     this.users = [];
@@ -46,7 +48,7 @@ export class GroupDetailsComponent implements OnInit, OnDestroy {
       (res: any)=>{
         this.members = res.data.users;
         this.groupName = res.data.groupname;
-        console.log(res);
+        this.user_details = res['user_details'];
       }, 
       (err: any)=>{
         console.log(err);
@@ -97,19 +99,18 @@ export class GroupDetailsComponent implements OnInit, OnDestroy {
     this.members.forEach( (member) => {
       this.users.forEach( (user) =>{
         if (member.email != user.email)
-          this.users.push(new InvUser(member.email, member.canEdit));
+          this.members.push(user);
       });
     });
-    console.log(this.users); 
     this.group.setGroupName(this.groupName);
     this.group.setUsers(this.members);
     this.groupsService.updateGroup(this.group).subscribe(
       (res: any) => {
-        //Show success msg or smth
+        if(res.success)
+          this.toastrService.makeSuccessToastr("Success", "You edited your group successfully");
       }, 
       (err: any) => {console.log(err)}, 
     );
-    //call service to update this group
   }
 
   showSaveBtn(){

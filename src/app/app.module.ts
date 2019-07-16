@@ -18,10 +18,11 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AuthGuard } from './services/auth-guard.service';
 import { AddHeaderInterceptor } from './services/AddHeaderInterceptor.service';
 import { GeneralService } from './services/general.service';
+import { UserService } from './services/user-service';
 
 @NgModule({
   declarations: [AppComponent],
-  //entryComponents: [DeleteDialogComponent], 
+  //entryComponents: [DeleteDialogComponent, TravelDialogComponent], 
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -42,6 +43,7 @@ import { GeneralService } from './services/general.service';
     { provide: APP_BASE_HREF, useValue: '/' },
     AuthGuard,
     GeneralService,
+    UserService,
   ],
 })
 export class AppModule {

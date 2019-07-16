@@ -18,9 +18,8 @@ export class TableLinkSessionComponent implements ViewCell, OnInit {
     hash: number; 
 
     ngOnInit() { 
-        console.log(this.rowData);
         this.name = this.value; 
-        this.hash = this.rowData.sessionHash;
+        this.hash = this.rowData.hash;
     }
 
 }

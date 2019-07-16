@@ -1,8 +1,8 @@
 import {InvUser} from './InvUser'; //<==== this one
-
 import { CaseStudy } from './CaseStudy';
 
-export class SessionCreate{
+export class SessionDetails{
+    public hash: number;
     public name: string;
     public allowHotJoin: Boolean;
     public memberLimit: number;

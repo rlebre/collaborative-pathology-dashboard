@@ -11,8 +11,6 @@ import { TableLinkSessionComponent } from './extra-table-components/table-link-s
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AddHeaderInterceptor } from '../services/AddHeaderInterceptor.service';
 
-
-
 const PAGES_COMPONENTS = [
   PagesComponent,
   UserProfileComponent,
@@ -24,6 +22,9 @@ const ENTRY_COMPONENTS = [
   TableLinkComponent,
   TableLinkSessionComponent,
 ];
+
+const PROVIDERS = [
+]
 
 
 @NgModule({
@@ -38,6 +39,9 @@ const ENTRY_COMPONENTS = [
   entryComponents: [
     ...ENTRY_COMPONENTS,
   ],
+  providers: [
+    ...PROVIDERS,
+  ]
 })
 export class PagesModule {
 }

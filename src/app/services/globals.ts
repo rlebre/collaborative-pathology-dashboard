@@ -12,9 +12,13 @@ export const logout_url: string = base_url + 'logout/';
 /* Data/Services urls */
 export const dashboard_url: string = base_url + 'dashboard/'; 
 export const create_session_url: string = base_url + 'createSession/'; 
+export const session_details_url: string = base_url + 'sessionDetails/';
+
 export const create_group_url: string = base_url + 'createGroup/'; 
 export const mygroups_url: string = base_url + 'mygroups/';
 export const group_details_url: string = base_url + 'groupDetails/';
+
+export const user_profile_url: string = base_url + 'userProfile/';
 
 
 /* Google related urls */

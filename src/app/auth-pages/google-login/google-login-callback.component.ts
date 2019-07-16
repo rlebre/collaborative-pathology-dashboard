@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { takeWhile } from 'rxjs/operators';
 
 import { GeneralService } from './../../services/general.service';
+import { UserLoggedIn, AccType } from '../../data-models/UserLoggedIn';
+import { UserService } from '../../services/user-service';
 
 
 @Component({
@@ -17,7 +19,7 @@ export class OAuth2CallbackComponent implements OnDestroy {
   alive = true;
 
   constructor(private authService: NbAuthService, private tokenService: NbTokenService,
-      private generalService: GeneralService, private router: Router) {
+      private generalService: GeneralService, private router: Router, private userService: UserService) {
 
     this.authService.authenticate('google')
       .pipe(takeWhile(() => this.alive))
@@ -27,10 +29,12 @@ export class OAuth2CallbackComponent implements OnDestroy {
           this.generalService.verifyOrCreateGoogleUser(authResult["response"]["access_token"]).subscribe(
             (userData: any) => {
               //handle results from backend here
-              let user = {'name': userData.personal_information.firstname, 'photo_url': userData.photo_url};
+              console.log(userData);
+              let user: UserLoggedIn = new UserLoggedIn(userData.email, userData.personal_information.firstname,
+                userData.personal_information.lastname, userData.photo_url, AccType.GOOGLE);
               authResult['token']['payload']['user'] = user;
+              this.userService.setUserLoggedIn(user);
               this.tokenService.set(authResult.getToken());
-              console.log("asbdjasbd");
               this.router.navigate(['/']);
             }, 
             (error: any) => {
@@ -39,28 +43,6 @@ export class OAuth2CallbackComponent implements OnDestroy {
               //handle possible errors from the backend here
             },
           );
-
-          /*generalService.getGoogleUserData(authResult["response"]["access_token"]).subscribe( 
-            (userData: any) => { 
-              let user = {'name': userData.displayName, 'picture': userData.image.url};
-              authResult['token']['payload']['user'] = user;
-              this.tokenService.set(authResult.getToken());
-              console.log(authResult.getToken());
-              sessionStorage.setItem('user', JSON.stringify(user));
-              this.router.navigate(['/']);
-              
-              generalService.createGoogleUser(userData).subscribe((res: any) =>{
-                if(res.success){
-                  //User sucessfully authenticated and registered in backend
-                  this.router.navigate(['/']);
-                }
-              });
-             },
-            (error: any) => { 
-              //Handle google api error .. 
-            }
-          );
-          */
 
         }
       });

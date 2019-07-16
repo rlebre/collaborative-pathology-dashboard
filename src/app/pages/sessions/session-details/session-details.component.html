@@ -1,98 +1,97 @@
 <div class="row">
-  
     <div class="col-md-12">
         <nb-card size="small">
-            <nb-tabset fullWidth>
+            <nb-card-header>
+                <div class="header-content">
+                    <div>Session {{session.name}}</div>
+                    <div>
+                        <nb-actions size="large">
+                            <nb-action>
+                                Actions
+                            </nb-action> 
+                            <nb-action class="icon" (click)="joinSession()" nbTooltip="Join Session" nbTooltipPlacement="top">
+                                <i class="fa fa-sign-in-alt" style="color: #012051;"></i>
+                            </nb-action> 
+                            <nb-action class="icon" (click)="replaySession()" nbTooltip="Replay Session" nbTooltipPlacement="top">
+                                <i class="fa fa-play-circle" style="color: #01500a;"></i>
+                            </nb-action> 
+                            <nb-action class="icon" (click)="deleteSession()" nbTooltip="Delete Session" nbTooltipPlacement="top">
+                                <i class="fas fa-trash-alt" style="color: firebrick"></i>
+                            </nb-action>
+                        </nb-actions>
 
-                <nb-tab tabTitle="Session Members">
-                    <nb-tabset fullWidth>
-                        <nb-tab tabTitle="Members">
-                            <div class="member" *ngFor="let m of members; let i = index">
-                            <nb-user [picture]="m.picture" [name]="m.email" [title]="m.firstname + ' ' + m.lastname" size="large"></nb-user>
-                            <div>
-                                <span>View Only</span>
-                                <div class="icon">
-                                <i *ngIf="m.canEdit; else elseBlock" class="nb-checkmark" [nbPopover]="icon" style="color: green;"></i>
-                                <ng-template #elseBlock>
-                                    <i class="icon nb-close" [nbPopover]="icon" style="color: red;"></i>
-                                </ng-template>  
-                                </div>
-                                <nb-actions size="medium" style="display:inline-block;">
-                                <nb-action icon="nb-close" (click)="removeUserPrevious(i)" nbTooltip="Remove User" nbTooltipPlacement="top" style="color: red;"></nb-action> 
-                                </nb-actions>
-                            </div>
-                            </div>
-                            
-                        </nb-tab>
-                        <nb-tab tabTitle="Change Settings">
-                            <div class="member" *ngFor="let m of members; let i = index">
-                            <input type="email" [(ngModel)]="m.email" nbInput (ngModelChange)="showSaveBtn($event)" placeholder="User Email">
-                            <nb-checkbox [(ngModel)]="m.canEdit" (ngModelChange)="showSaveBtn($event)">ViewOnly</nb-checkbox>
-                            <nb-actions size="medium" >
-                                <nb-action icon="nb-close" (click)="removeUserPrevious(i)" nbTooltip="Remove User" nbTooltipPlacement="top"></nb-action> 
-                            </nb-actions>
-                            </div>
-                        </nb-tab>
-                    </nb-tabset>
-                </nb-tab>
+                    </div>
+                </div>
                 
-                <nb-tab tabTitle="Session Details">
-                    <div class="row">
+            </nb-card-header>
+            <nb-card-body>
+                <nb-tabset fullWidth>
                     
-                        <div class="col-sm-6">
-                            <ngx-add-user-widget (add)="addUser($event)"></ngx-add-user-widget>
-                            <div class="row" style="margin-top: 10px;" *ngFor="let user of users; let i = index">
-                            <div class="input-group col-sm-6">
-                                <input type="email" [(ngModel)]="user.email" nbInput fullWidth placeholder="User Email">
-                            </div>
-                            <nb-checkbox [(ngModel)]="user.canEdit" class="col-sm-2">ViewOnly</nb-checkbox>
-                            <nb-actions class="col-sm-4" size="medium">   
-                                <nb-action icon="nb-close" (click)="removeUser(i)" nbTooltip="Remove User" nbTooltipPlacement="top"></nb-action> 
-                            </nb-actions>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-6">
-                            <h4> Configure HotJoin Access
-                                <i class="icon nb-help" [nbPopover]="icon" nbTooltip="Allow access to the session through a general link" nbTooltipPlacement="top"></i>
-                            </h4>
-                            <nb-checkbox [(ngModel)]="hasHotJoin" class="col-sm-2">Allow HotJoin</nb-checkbox>
-                            <br>
-                            <input *ngIf="hasHotJoin" type="number" [(ngModel)]="maxHotJoinUsers" nbInput fullWidth placeholder="Maximum Users" style="width: 50%;">
-                        </div>
-                    </div>
-
-                    <div class="row">
-
-                        <div class="col-sm-12">
-                            <h4>Configure Access dates</h4>
-
-                            <div class="row">
-
-                                <div class="col-sm-6">
-                                    <input nbInput placeholder="Start day" [nbDatepicker]="start_date" style="width: 50%;">
-                                    <nb-datepicker #start_date [min]="minStart"></nb-datepicker>
-                                    <input type="number" min="0" max="25" value="0" [(ngModel)]="startHour" nbInput placeholder="HH" style="width: 20%; margin-left: 10px;">
-                                    <input type="number" min="0" max="60" value="0" [(ngModel)]="startMins" nbInput placeholder="MM" style="width: 20%; margin-left: 10px;">          
-                                </div>
-
-                                <div class="col-sm-6">
-                                    <input nbInput placeholder="End day" [nbDatepicker]="end_date" style="width: 50%;">
-                                    <nb-datepicker #end_date [min]="minEnd"></nb-datepicker>   
-                                    <input type="number" min="0" max="25" value="0" [(ngModel)]="endHour" nbInput placeholder="HH" style="width: 20%; margin-left: 10px;">
-                                    <input type="number" min="0" max="60" value="0" [(ngModel)]="endMins" nbInput placeholder="MM" style="width: 20%; margin-left: 10px;">             
-                                </div>
-    
+                    <nb-tab tabTitle="Session Members">
+                        <div class="member" *ngFor="let m of members; let i = index">
+                            <nb-user *ngIf="!members_details[i].anonymous else anonUser" [picture]="members_details[i].photo_url" [name]="m.email" [title]="members_details[i].firstname + ' ' + members_details[i].lastname" size="large">
+                            </nb-user>
+                            <ng-template #anonUser>
+                                <nb-user *ngIf="members_details[i].anonymous" nbTooltip="This user might not be registered" nbTooltipPlacement="top"
+                                badgeStatus="warning" badgeText="?" 
+                                [picture]="members_details[i].photo_url" [name]="m.email" [title]="members_details[i].firstname + ' ' + members_details[i].lastname" size="large">
+                                </nb-user>
+                            </ng-template> 
+                            <div>
+                                <nb-checkbox [(ngModel)]="m.canEdit" (ngModelChange)="showSaveButton($event)">Can Edit</nb-checkbox>    
+                                <nb-checkbox [(ngModel)]="members_to_remove[i]" (ngModelChange)="showSaveButton($event)">Remove</nb-checkbox>                                
                             </div>
                         </div>
+                    
+                    </nb-tab>
+                    
+                    <nb-tab tabTitle="Session Details">
+                        <div class="row">
                         
-                    </div>
+                            <div class="col-sm-6">
+                                <ngx-add-user-widget (add)="addUser($event)"></ngx-add-user-widget>
+                                <div class="row" style="margin-top: 10px;" *ngFor="let user of users; let i = index">
+                                    <div class="input-group col-sm-6">
+                                        <input type="email" [(ngModel)]="user.email" nbInput fullWidth placeholder="User Email">
+                                    </div>
+                                    <nb-checkbox [(ngModel)]="user.canEdit" class="col-sm-2">ViewOnly</nb-checkbox>
+                                    <nb-actions class="col-sm-4" size="medium">   
+                                        <nb-action icon="nb-close" (click)="removeUser(i)" nbTooltip="Remove User" nbTooltipPlacement="top"></nb-action> 
+                                    </nb-actions>
+                                </div>
+                            </div>
+    
+                            <div class="col-sm-6" style="text-align: center;" >
+                                <div>
+                                    <h4> Configure HotJoin Access
+                                        <i class="icon nb-help" [nbPopover]="icon" nbTooltip="Allow access to the session through a general link" nbTooltipPlacement="top"></i>
+                                    </h4>
+                                    <nb-checkbox [(ngModel)]="session.allowHotJoin" class="col-sm-2">Allow HotJoin</nb-checkbox>
+                                    <br>
+                                    <input *ngIf="session.allowHotJoin" type="number" [(ngModel)]="session.memberLimit" nbInput fullWidth placeholder="Maximum Users" style="width: 50%;">
+                                </div>
 
-                </nb-tab>
-                
-            </nb-tabset>
+                                <br>
+                                
+                                <div>
+                                    <h4>Configure Access dates</h4>
+                            
+                                    <input nbInput [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" placeholder="Start Date" [(ngModel)]="session.startDate">
+                                    <owl-date-time [startAt]="session?.startDate" #dt1></owl-date-time>
+        
+                                    <input style="margin-left: 0.5em;" nbInput [owlDateTime]="dt2" [owlDateTimeTrigger]="dt2" placeholder="End Date" [(ngModel)]="session.endDate">
+                                    <owl-date-time [startAt]="session?.endDate" #dt2></owl-date-time>
+                                </div>
+                                
+                            </div>
+
+                        </div>
+                    </nb-tab>
+                    
+                </nb-tabset>
+                <button *ngIf="showSaveBtn" nbButton (click)="editSession()">Save Changes</button>
+            </nb-card-body>
         </nb-card>
     </div>
-  
 </div>
   

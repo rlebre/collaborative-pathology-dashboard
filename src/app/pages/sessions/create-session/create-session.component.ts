@@ -1,5 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import { NbDateService } from '@nebular/theme';
+import { NbDateService, NbDialogService } from '@nebular/theme';
+import { SessionsService } from '../../../services/sessions.service';
 import { LocalDataSource } from 'ng2-smart-table';
 
 import { SessionCreate } from '../../../data-models/SessionCreate'; 
@@ -7,6 +8,7 @@ import { InvUser } from '../../../data-models/InvUser';
 import { CaseStudy } from '../../../data-models/CaseStudy';
 
 import { TableImageEditorComponent } from './table-image-editor.component';
+import { TravelDialogComponent } from '../confirm-dialogs/travel-dialog.component';
 
 import '../../editors/ckeditor/ckeditor.loader';
 import 'ckeditor';
@@ -18,29 +20,25 @@ import 'ckeditor';
 })
 export class CreateSessionComponent implements OnDestroy, OnInit {
 
-  hasHotJoin: boolean;
-  maxHotJoinUsers: number;
+  session: SessionCreate;
+  validName: boolean;
 
   minStart: Date;
   minEnd: Date;
 
-  startHour: number;
-  startMins: number;
-  endHour: number;
-  endMins: number;
+  startDate: Date; 
+  endDate: Date;
 
   images :CaseStudy[];
-  isSingleView: boolean;
   selectedImage: CaseStudy;
   imageSelected: boolean;
 
   users :InvUser[];
+  groups: string[] = [];
 
   dropdownList = [];
   selectedItems = [];
   dropdownSettings = {};
-
-  session: SessionCreate;
 
   editorData: any;
 
@@ -79,9 +77,13 @@ export class CreateSessionComponent implements OnDestroy, OnInit {
   source: LocalDataSource = new LocalDataSource();
 
 
-  constructor(protected dateService: NbDateService<Date>) {
-    this.users = [new InvUser("", true)];
+  constructor(protected dateService: NbDateService<Date>,
+              protected dialogService: NbDialogService,
+              protected sessionsService: SessionsService) {
+    
     this.session = new SessionCreate();
+
+    this.users = [];
     this.minStart = this.dateService.today();
     this.minEnd = this.minStart;
     this.editorData = "";
@@ -107,39 +109,31 @@ export class CreateSessionComponent implements OnDestroy, OnInit {
 
     this.source.load(this.images);
 
+    this.sessionsService.getSetupInfo().subscribe(
+      (res: any) => {
+        let userGroups: string[] = res.data.userGroups;
+        for(var i = 1; i<=userGroups.length; i++){
+          let obj = {"id": i, "itemName": userGroups[i-1]};
+          this.dropdownList.push(obj);
+        }
+      },
+      (err: any) => { console.log(err); }
+    );
+
   }
   ngOnInit() {
 
     this.imageSelected = false; 
 
-    this.dropdownList = [
-      { item_id: 1, item_text: 'Mumbai' },
-      { item_id: 2, item_text: 'Bangaluru' },
-      { item_id: 3, item_text: 'Pune' },
-      { item_id: 4, item_text: 'Navsari' },
-      { item_id: 5, item_text: 'New Delhi' }
-    ];
-    this.selectedItems = [
-      { item_id: 3, item_text: 'Pune' },
-      { item_id: 4, item_text: 'Navsari' }
-    ];
-    this.dropdownSettings = {
-      singleSelection: false,
-      idField: 'item_id',
-      textField: 'item_text',
-      selectAllText: 'Select All',
-      unSelectAllText: 'UnSelect All',
-      itemsShowLimit: 3,
-      allowSearchFilter: true
+    this.dropdownSettings = { 
+      singleSelection: false, 
+      text:"Select Groups",
+      selectAllText:'Select All',
+      unSelectAllText:'UnSelect All',
+      enableSearchFilter: true,
+      classes:"myclass custom-class"
     };
 
-  }
-
-  onItemSelect(item: any) {
-    console.log(item);
-  }
-  onSelectAll(items: any) {
-    console.log(items);
   }
 
   ngOnDestroy() {
@@ -156,16 +150,51 @@ export class CreateSessionComponent implements OnDestroy, OnInit {
       this.users.splice(index,1);
   }
 
-  printEditor(){
-    console.log(this.editorData);
-    console.log(this.minStart.toString());
-  }
-
   onRowSelect(event) {
-    this.selectedImage = event;
+    this.selectedImage = event.data;
     this.imageSelected = true;
   }
 
-  
+  createSession(){
 
+    //Setting up the dates
+    if(this.startDate)
+      this.session.startDate = this.startDate;
+    
+    if(this.endDate)
+      this.session.endDate = this.endDate;
+    
+    if(this.editorData)
+      this.session.email_message = this.editorData;
+    
+    if(this.users.length > 0)
+      this.session.participatingUsers = this.users;
+    
+
+    for(var i = 0; i<this.selectedItems.length; i++){
+      this.groups.push(this.selectedItems[i]['itemName']);
+      this.session.groups = this.groups;
+    }
+
+    this.session.caseStudy = this.selectedImage;
+
+    this.sessionsService.createSession(this.session).subscribe(
+      (res: any) => { 
+        if(res.redirect_link){
+          console.log(res);
+          this.open(res.redirect_link);
+        }
+      },
+      (err: any) => { console.log(err) }
+    );;
+
+  }
+
+  open(url: string) {
+    this.dialogService.open(TravelDialogComponent, {
+      context: {
+        url: url,
+      },
+    });
+  }
 }
