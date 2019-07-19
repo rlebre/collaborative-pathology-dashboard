@@ -26,8 +26,6 @@ export class SessionDetailsComponent implements OnDestroy, OnInit {
   sesssionHash: number; 
 
   members: InvUser[];
-  members_details: any[];
-  members_to_remove: boolean[] = [];
   links: string[];
 
   minStart: Date;
@@ -40,40 +38,13 @@ export class SessionDetailsComponent implements OnDestroy, OnInit {
 
   dropdownList = [];
   selectedItems = [];
-  dropdownSettings = {};
+  dropdownSettings = {
+  };
 
   editorData: any;
 
   editorConfig = {}
-
-  showSaveBtn: boolean = false;
-
-  settings = {
-    actions:{
-      position: 'right',
-    },
-    columns: {
-      imageUrl: {
-        title: 'Case Study',
-        type: 'custom',
-        class: 'centered',
-        filter: false,
-        sort: false,
-        width: '15%',
-        //renderComponent: TableImageEditorComponent
-      },
-      seriesID: {
-        title: 'Study ID',
-        type: 'string',
-        class: 'centered'
-      },
-      studyID: {
-        title: 'Image ID', 
-        class: 'centered',
-        type: 'string',
-      },
-    },
-  };
+  showSaveBtn: boolean = false;  
 
   constructor(protected dateService: NbDateService<Date>,
               protected dialogService: NbDialogService,
@@ -83,23 +54,18 @@ export class SessionDetailsComponent implements OnDestroy, OnInit {
    
       this.sesssionHash = +this.route.snapshot.paramMap.get('sessionHash');
       this.users = [];
+      
 
   }
   ngOnInit() {
 
     this.sessionService.getSessionDetails(this.sesssionHash).subscribe(
       (res: any) => {
-        console.log(res);
         this.session = res.data;
         this.members = this.session.participatingUsers;
-        this.members_details = res['user_details'];
         this.links = res.urls;
         if(this.session.startDate)
           this.startAt = new Date(res.data.startDate);
-        
-        for(var i = 0; i<this.members.length; i++){
-          this.members_to_remove.push(false);
-        }
         
       },
       (err: any) => { console.log(err); }
@@ -108,12 +74,6 @@ export class SessionDetailsComponent implements OnDestroy, OnInit {
   }
 
   ngOnDestroy() {
-  }
-
-  addUser(event){
-    for(let i = 0; i<event.usersToAdd; i++){
-      this.users.push(new InvUser("", event.viewOnlyAdd)); 
-    }
   }
 
   showSaveButton(event){
@@ -134,13 +94,6 @@ export class SessionDetailsComponent implements OnDestroy, OnInit {
   }
 
   editSession(){
-
-    //First, remove from the members list those marked as "removed"
-    for(var i = 0; i<this.members.length; i++){
-      if(this.members_to_remove[i]){
-        this.members.splice(i, 1);
-      }
-    }
 
     this.session.participatingUsers = this.members;
 

@@ -16,8 +16,8 @@ export class SmartTableComponent {
 
   settings = {
     actions:{
-      add: false,
-      edit: false, 
+      add: true,
+      edit: true, 
     },
     add: {
       addButtonContent: '<i class="nb-plus"></i>',
@@ -74,5 +74,11 @@ export class SmartTableComponent {
     } else {
       event.confirm.reject();
     }
+  }
+
+  printData(){
+    this.source.getAll().then((rs: any) => {
+      console.log(rs);
+    });
   }
 }

@@ -1,0 +1,11 @@
+
+<ng2-smart-table style="text-align: center !important" 
+[settings]="settings" [source]="source" (deleteConfirm)="onDelete($event)">
+</ng2-smart-table>
+
+<button *ngIf="deletedItems.length != 0" nbButton (click)="undo()" style="margin-top: 1em;">Undo</button>
+
+<nb-alert status="warning" *ngIf="fewUsers" closable (close)="onCloseWarn()">
+  Groups must at least have one member !
+</nb-alert>
+

@@ -7,4 +7,7 @@
     <ng2-smart-table [settings]="settings" [source]="source" (deleteConfirm)="onDeleteConfirm($event)">
     </ng2-smart-table>
   </nb-card-body>
+
+  <button nbButton (click)="printData()">Print</button>
+
 </nb-card>

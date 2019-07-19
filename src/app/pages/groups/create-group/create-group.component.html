@@ -16,8 +16,15 @@
       <div class="input-group col-sm-6">
         <input type="email" [(ngModel)]="user.email" nbInput fullWidth placeholder="User Email">
       </div>
-      <nb-checkbox [(ngModel)]="user.canEdit" class="col-sm-2">ViewOnly</nb-checkbox>
-      <nb-actions class="col-sm-4" size="medium">   
+      <div class="col-sm-4">
+        <angular2-multiselect 
+        [data]="dropdownPermsList"
+        [(ngModel)]="user_perms[i]"
+        [settings]="dropdownPermsSettings"
+        >
+        </angular2-multiselect>  
+      </div>
+      <nb-actions class="col-sm-2" size="medium">   
         <nb-action icon="nb-close" (click)="removeUser(i)" nbTooltip="Remove User" nbTooltipPlacement="top"></nb-action> 
       </nb-actions>
     </div>

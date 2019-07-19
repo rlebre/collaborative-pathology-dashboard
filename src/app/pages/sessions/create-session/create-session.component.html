@@ -39,13 +39,25 @@
           <div class="col-sm-6">
             <ngx-add-user-widget (add)="addUser($event)"></ngx-add-user-widget>
             <div class="row" style="margin-top: 10px;" *ngFor="let user of users; let i = index">
-              <div class="input-group col-sm-6">
+              <div class="input-group col-sm-4">
                 <input type="email" [(ngModel)]="user.email" nbInput fullWidth placeholder="User Email">
               </div>
-              <nb-checkbox [(ngModel)]="user.canEdit" class="col-sm-2">ViewOnly</nb-checkbox>
-              <nb-actions class="col-sm-4" size="medium">   
-                <nb-action icon="nb-close" (click)="removeUser(i)" nbTooltip="Remove User" nbTooltipPlacement="top"></nb-action> 
-              </nb-actions>
+              
+              <div class="col-sm-6">
+                  <angular2-multiselect class="col-sm-6"
+                  [data]="dropdownPermsList"
+                  [(ngModel)]="user_perms[i]"
+                  [settings]="dropdownPermsSettings"
+                  >
+                </angular2-multiselect>
+
+              </div>
+              <div class="col-sm-2">
+                <nb-actions size="medium">   
+                  <nb-action icon="nb-close" (click)="removeUser(i)" nbTooltip="Remove User" nbTooltipPlacement="top"></nb-action> 
+                </nb-actions>
+              </div>
+              
             </div>
           </div>
         </div>

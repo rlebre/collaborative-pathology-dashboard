@@ -5,8 +5,6 @@
 @include nb-install-component() {
   nb-tabset {
     height: 100%;
-    //display: flex;
-    //flex-direction: column;
   }
 
   nb-tab {
@@ -41,7 +39,7 @@
     padding: nb-theme(padding);
   }
 
-  /deep/ nb-card {
+  nb-card {
     height: 100%;
   }
 

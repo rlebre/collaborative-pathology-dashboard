@@ -6,6 +6,7 @@ import { ThemeModule } from '../../@theme/theme.module';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { GroupsRoutingModule } from './groups-routing.module';
 import { WidgetsModule } from '../../widgets/widgets.module';
+import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
 
 // components
 import { GroupsComponent } from './groups.component';
@@ -41,10 +42,11 @@ const MODULES = [
   ToasterModule.forChild(),
   NbDialogModule.forChild(),
   WidgetsModule,
+  AngularMultiSelectModule,
 ];
 
 const ENTRYCOMPONENTS = [
-  TableGroupsEditorComponent, 
+  TableGroupsEditorComponent,
   DeleteDialogComponent
 ]; 
 

@@ -1,0 +1,36 @@
+@import '../../@theme/styles/themes';
+@import '~bootstrap/scss/mixins/breakpoints';
+@import '~@nebular/theme/styles/global/breakpoints';
+
+@include nb-install-component() {
+  
+  @include media-breakpoint-down(sm) {
+    ngx-traffic {
+      display: none;
+    }
+  }
+
+  .icon {
+    display: inline-block;
+    font-size: 1.5rem;
+    padding-left: 1rem;
+
+    i:hover {
+      opacity: 0.8;
+      cursor: pointer;
+    }
+  }
+
+  .nb-icons .icon {
+    padding: 0.75rem 0;
+    font-size: 1.75rem;
+}
+
+  @include media-breakpoint-down(is) {
+    /deep/ nb-card.large-card {
+      height: nb-theme(card-height-medium);
+    }
+  }
+
+  
+}

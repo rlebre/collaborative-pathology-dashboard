@@ -28,37 +28,14 @@
                 <nb-tabset fullWidth>
                     
                     <nb-tab tabTitle="Session Members">
-                        <div class="member" *ngFor="let m of members; let i = index">
-                            <nb-user *ngIf="!members_details[i].anonymous else anonUser" [picture]="members_details[i].photo_url" [name]="m.email" [title]="members_details[i].firstname + ' ' + members_details[i].lastname" size="large">
-                            </nb-user>
-                            <ng-template #anonUser>
-                                <nb-user *ngIf="members_details[i].anonymous" nbTooltip="This user might not be registered" nbTooltipPlacement="top"
-                                badgeStatus="warning" badgeText="?" 
-                                [picture]="members_details[i].photo_url" [name]="m.email" [title]="members_details[i].firstname + ' ' + members_details[i].lastname" size="large">
-                                </nb-user>
-                            </ng-template> 
-                            <div>
-                                <nb-checkbox [(ngModel)]="m.canEdit" (ngModelChange)="showSaveButton($event)">Can Edit</nb-checkbox>    
-                                <nb-checkbox [(ngModel)]="members_to_remove[i]" (ngModelChange)="showSaveButton($event)">Remove</nb-checkbox>                                
-                            </div>
-                        </div>
-                    
+                        <ngx-users-table-widget *ngIf="members" [members]="members"></ngx-users-table-widget>                    
                     </nb-tab>
                     
                     <nb-tab tabTitle="Session Details">
                         <div class="row">
                         
                             <div class="col-sm-6">
-                                <ngx-add-user-widget (add)="addUser($event)"></ngx-add-user-widget>
-                                <div class="row" style="margin-top: 10px;" *ngFor="let user of users; let i = index">
-                                    <div class="input-group col-sm-6">
-                                        <input type="email" [(ngModel)]="user.email" nbInput fullWidth placeholder="User Email">
-                                    </div>
-                                    <nb-checkbox [(ngModel)]="user.canEdit" class="col-sm-2">ViewOnly</nb-checkbox>
-                                    <nb-actions class="col-sm-4" size="medium">   
-                                        <nb-action icon="nb-close" (click)="removeUser(i)" nbTooltip="Remove User" nbTooltipPlacement="top"></nb-action> 
-                                    </nb-actions>
-                                </div>
+                                <ckeditor [(ngModel)]="editorData" [config]="editorConfig"></ckeditor>
                             </div>
     
                             <div class="col-sm-6" style="text-align: center;" >
@@ -75,7 +52,7 @@
                                 
                                 <div>
                                     <h4>Configure Access dates</h4>
-                            
+
                                     <input nbInput [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" placeholder="Start Date" [(ngModel)]="session.startDate">
                                     <owl-date-time [startAt]="session?.startDate" #dt1></owl-date-time>
         
@@ -94,4 +71,3 @@
         </nb-card>
     </div>
 </div>
-  

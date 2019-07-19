@@ -34,11 +34,21 @@ export class CreateSessionComponent implements OnDestroy, OnInit {
   imageSelected: boolean;
 
   users :InvUser[];
+  user_perms: any[];
   groups: string[] = [];
 
   dropdownList = [];
   selectedItems = [];
   dropdownSettings = {};
+  dropdownPermsSettings = {};
+
+  dropdownPermsList = [
+    {"id":"movementPermission","itemName":"Movement", "category": "Image"},
+    {"id":"flipPermission","itemName":"Flip", "category": "Image"},
+    {"id":"annotationPermission","itemName":"Annotation", "category": "Image"},
+    {"id":"adjustmentPermission","itemName":"Adjustment", "category": "Image"},
+    {"id":"moderatorPermission","itemName":"Moderator", "category": "Moderation"},
+  ];
 
   editorData: any;
 
@@ -84,6 +94,7 @@ export class CreateSessionComponent implements OnDestroy, OnInit {
     this.session = new SessionCreate();
 
     this.users = [];
+    this.user_perms = [];
     this.minStart = this.dateService.today();
     this.minEnd = this.minStart;
     this.editorData = "";
@@ -131,7 +142,14 @@ export class CreateSessionComponent implements OnDestroy, OnInit {
       selectAllText:'Select All',
       unSelectAllText:'UnSelect All',
       enableSearchFilter: true,
-      classes:"myclass custom-class"
+    };
+
+    this.dropdownPermsSettings = { 
+      singleSelection: false, 
+      text:"Select Perms",
+      selectAllText:'Select All',
+      unSelectAllText:'UnSelect All',
+      enableSearchFilter: true,
     };
 
   }
@@ -141,13 +159,16 @@ export class CreateSessionComponent implements OnDestroy, OnInit {
 
   addUser(event){
     for(let i = 0; i<event.usersToAdd; i++){
-      this.users.push(new InvUser("", event.viewOnlyAdd)); 
+      this.users.push(new InvUser("", event.viewOnlyAdd));
+      this.user_perms.push([]);
     }
   }
 
   removeUser(index: number){
-    if(this.users.length > 1)
+    if(this.users.length > 1){
       this.users.splice(index,1);
+      this.user_perms.splice(index,1);
+    }
   }
 
   onRowSelect(event) {
@@ -167,9 +188,19 @@ export class CreateSessionComponent implements OnDestroy, OnInit {
     if(this.editorData)
       this.session.email_message = this.editorData;
     
-    if(this.users.length > 0)
+    if(this.users.length > 0){
+      for(var i = 0; i<this.users.length; i++){
+        let perms = {};
+        for(var e = 0; e<this.user_perms[i].length; e++){
+          perms[this.user_perms[i][e]['id']] = true;
+        }
+        this.users[i].permissions = perms;
+      }
       this.session.participatingUsers = this.users;
-    
+    }
+
+    console.log(this.session.participatingUsers);
+      
 
     for(var i = 0; i<this.selectedItems.length; i++){
       this.groups.push(this.selectedItems[i]['itemName']);
