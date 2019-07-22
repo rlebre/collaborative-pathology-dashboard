@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { ToasterModule } from 'angular2-toaster';
 
 import { ThemeModule } from '../../@theme/theme.module';
+import { MiscellaneousModule } from '../miscellaneous/miscellaneous.module';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { GroupsRoutingModule } from './groups-routing.module';
 import { WidgetsModule } from '../../widgets/widgets.module';
@@ -37,6 +38,7 @@ const SERVICES = [
 
 const MODULES = [
   ThemeModule,
+  MiscellaneousModule,
   Ng2SmartTableModule,
   GroupsRoutingModule,
   ToasterModule.forChild(),

@@ -10,6 +10,7 @@ export class SessionDetails{
     public endDate: Date;
     public participatingUsers: InvUser[];
     public groups: string[];
+    public tags: string[];
     public caseStudy: CaseStudy;
     public email_message: string;
 

@@ -19,7 +19,6 @@ import { Component, Input, OnInit } from '@angular/core';
         <span *ngIf="no_perms else perms" style="color: red;">No Permissions Granted</span>
         <ng-template #perms>
             <div class="icon">
-                <i *ngIf="value.moderatorPermission" class="icon fas fa-tasks" style="color: rgb(208, 51, 240)" nbTooltip="Has Moderator Permission" nbTooltipPlacement="top"></i>
                 <i *ngIf="value.movementPermission" class="icon fas fa-arrows-alt" style="color: green" nbTooltip="Has Movement Permission" nbTooltipPlacement="top"></i>
                 <i *ngIf="value.flipPermission" class="icon fas fa-undo" style="color: rgb(0, 119, 128)" nbTooltip="Has Flip Permission" nbTooltipPlacement="top"></i>
                 <i *ngIf="value.annotationPermission" class="icon fas fa-pencil-alt" style="color: rgb(0, 23, 128)" nbTooltip="Has Annotation Permission" nbTooltipPlacement="top"></i>
@@ -36,7 +35,6 @@ export class TablePermsViewComponent implements OnInit {
     no_perms: boolean = true;
 
     ngOnInit() {
-        console.log(this.value);
         if(Object.keys(this.value).length > 0 )
             this.no_perms = false;
     }

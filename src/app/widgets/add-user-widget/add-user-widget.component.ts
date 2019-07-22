@@ -1,24 +1,64 @@
-import {Component, OnDestroy, Output, EventEmitter } from '@angular/core';
+import {Component, OnInit, OnDestroy, Output, Input, EventEmitter } from '@angular/core';
+
+import { InvUser } from '../../data-models/InvUser';
+import { GeneralService } from '../../services/general.service';
 
 @Component({
   selector: 'ngx-add-user-widget',
   styleUrls: ['./add-user-widget.component.scss'],
   templateUrl: './add-user-widget.component.html',
 })
-export class AddUserWidgetComponent implements OnDestroy {
+export class AddUserWidgetComponent implements OnInit, OnDestroy {
 
-  @Output() add = new EventEmitter<any>();
+  @Input() members: InvUser[];
+  @Input() user_perms: any[];
+  @Input() user_roles: any[];
 
   usersToAdd: number; 
-  viewOnlyAdd: boolean; 
+  fewUsers: boolean;
 
-  constructor() { 
-    this.viewOnlyAdd = false;
+  dropdownPermsSettings = {
+    text: "Select Permissions",
+    enableSearchFilter: true,
+    badgeShowLimit: 1,
+  };
+
+  dropdownRolesSettings = {
+    text: "Select Role",
+    singleSelection: true,
+    enableSearchFilter: true,
+    badgeShowLimit: 1,
+  };
+
+  dropdownPermsList = [];
+  dropdownRolesList = [];
+
+  constructor(protected generalService: GeneralService) { 
     this.usersToAdd = 1;
   }
 
-  addUsers() {
-    this.add.next({usersToAdd: this.usersToAdd, viewOnlyAdd: this.viewOnlyAdd});
+  ngOnInit(){
+    this.dropdownPermsList = this.generalService.getPerms();
+    this.dropdownRolesList = this.generalService.getRoles();
+  }
+
+  addUser(){
+    for(let i = 0; i<this.usersToAdd; i++){
+      this.members.push(new InvUser("", {}, "guest")); 
+      this.user_perms.push([]);
+      this.user_roles.push([]);
+    }
+    this.fewUsers = false; 
+  }
+
+  removeUser(index: number){
+    if(this.members.length > 1){
+      this.members.splice(index,1);
+      this.user_perms.splice(index,1);
+      this.user_roles.splice(index,1);
+    }
+    else
+      this.fewUsers = true; 
   }
 
   ngOnDestroy() {

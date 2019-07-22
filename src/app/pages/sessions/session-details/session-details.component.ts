@@ -13,6 +13,7 @@ import 'ckeditor';
 
 import { NbDialogService } from '@nebular/theme';
 import { SessionsService } from '../../../services/sessions.service';
+import { ToastrService } from '../../../services/toastr.service';
 
 @Component({
   selector: 'ngx-create-session',
@@ -36,9 +37,9 @@ export class SessionDetailsComponent implements OnDestroy, OnInit {
 
   users :InvUser[];
 
-  dropdownList = [];
-  selectedItems = [];
-  dropdownSettings = {
+  dropdown_tagsList = [];
+  selectedTags = [];
+  dropdownTagsSettings = {
   };
 
   editorData: any;
@@ -49,11 +50,21 @@ export class SessionDetailsComponent implements OnDestroy, OnInit {
   constructor(protected dateService: NbDateService<Date>,
               protected dialogService: NbDialogService,
               protected sessionService: SessionsService,
+              protected toastrService: ToastrService,
               protected route: ActivatedRoute) {
 
    
       this.sesssionHash = +this.route.snapshot.paramMap.get('sessionHash');
       this.users = [];
+
+      this.dropdownTagsSettings = { 
+        singleSelection: false, 
+        text:"Select Tags",
+        selectAllText:'Select All',
+        unSelectAllText:'UnSelect All',
+        enableSearchFilter: true,
+        badgeShowLimit: 3,
+      };
       
 
   }
@@ -66,6 +77,11 @@ export class SessionDetailsComponent implements OnDestroy, OnInit {
         this.links = res.urls;
         if(this.session.startDate)
           this.startAt = new Date(res.data.startDate);
+        for(var i = 1; i<=this.session.tags.length; i++){
+          let obj = {"id": i, "itemName": this.session.tags[i-1]};
+          this.dropdown_tagsList.push(obj);
+          this.selectedTags.push(obj);
+        }
         
       },
       (err: any) => { console.log(err); }
@@ -96,12 +112,16 @@ export class SessionDetailsComponent implements OnDestroy, OnInit {
   editSession(){
 
     this.session.participatingUsers = this.members;
-
+    let session_tags: string[] = [];
+    for(var i = 0; i < this.selectedTags.length; i++){
+      session_tags.push(this.selectedTags[i]['itemName']);
+    }
+    this.session.tags = session_tags;
     //Check the values .. 
     this.sessionService.updateSession(this.session).subscribe(
       (res: any) => {
         //Show success message.
-        console.log(res);
+        this.toastrService.makeSuccessToastr("Success", "You edited your session");
       },
       (err: any) => { console.log(err); }
     );

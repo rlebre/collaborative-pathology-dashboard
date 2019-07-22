@@ -1,9 +1,10 @@
 import { Component, ViewChild, ElementRef, Input, OnInit ,AfterViewInit } from '@angular/core';
 import { DefaultEditor } from 'ng2-smart-table';
+import { GeneralService } from '../../services/general.service';
 
 @Component({
   template: `
-  <angular2-multiselect
+  <angular2-multiselect *ngIf='dropdownList.length > 0'
   [data]="dropdownList"
   [(ngModel)]="selectedItems"
   [settings]="dropdownSettings"
@@ -17,44 +18,38 @@ import { DefaultEditor } from 'ng2-smart-table';
 })
 export class TablePermsEditorComponent extends DefaultEditor implements OnInit, AfterViewInit {
 
-  /*@ViewChild('name') name: ElementRef;
-  @ViewChild('url') url: ElementRef;
-  @ViewChild('htmlValue') htmlValue: ElementRef;*/
   perms = {};
 
   selectedItems = [];
   dropdownSettings = {
-    //groupBy: "category",
     badgeShowLimit: 3,
     position: 'top',
   };
-  dropdownList = [
-    {"id":"movementPermission","itemName":"Movement", "category": "Image"},
-    {"id":"flipPermission","itemName":"Flip", "category": "Image"},
-    {"id":"annotationPermission","itemName":"Annotation", "category": "Image"},
-    {"id":"adjustmentPermission","itemName":"Adjustment", "category": "Image"},
-    {"id":"moderatorPermission","itemName":"Moderator", "category": "Moderation"},
-  ];
 
-  aux_dict = {
-    'movementPermission' : this.dropdownList[0],
-    'flipPermission' : this.dropdownList[1],
-    'annotationPermission' : this.dropdownList[2],
-    'adjustmentPermission' : this.dropdownList[3],
-    'moderatorPermission' : this.dropdownList[4],
-  };
+  dropdownList = [];
 
-  constructor() {
+  aux_dict = {};
+
+  constructor(protected generalService: GeneralService) {
     super();
   }
 
   ngOnInit(){
+    this.dropdownList = this.generalService.getPerms();
+    this.aux_dict = {
+      'movementPermission' : this.dropdownList[0],
+      'flipPermission' : this.dropdownList[1],
+      'annotationPermission' : this.dropdownList[2],
+      'adjustmentPermission' : this.dropdownList[3],
+    };
+
     this.perms = this.cell.getValue();
+
     if(this.perms == ""){
       this.perms = {};
       this.cell.newValue = this.perms;
-      console.log("adding new perms");
     }
+
     Object.keys(this.perms).forEach(function(key,index) {
       this.selectedItems.push(this.aux_dict[key]);
     }, this);

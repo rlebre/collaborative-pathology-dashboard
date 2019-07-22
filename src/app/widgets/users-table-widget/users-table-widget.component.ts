@@ -3,6 +3,8 @@ import { LocalDataSource } from 'ng2-smart-table';
 
 import { TablePermsEditorComponent } from './table-perms-editor.component';
 import { TablePermsViewComponent } from './table-perms-view.component';
+import { TableRoleViewComponent } from './table-role-view.component';
+import { TableRoleEditorComponent } from './table-role-editor.component';
 import { TableUsersViewComponent } from './table-users-view.component';
 import { TableUsersEditorViewComponent } from './table-users-editor-view.component';
 
@@ -63,6 +65,17 @@ export class UsersTableWidgetComponent implements OnInit, OnDestroy {
         editor: {
           type: 'custom',
           component: TablePermsEditorComponent,
+        },
+      },
+      role: {
+        title: 'Role', 
+        class: 'centered',
+        type: 'custom', 
+        width: '15%',
+        renderComponent: TableRoleViewComponent,
+        editor: {
+          type: 'custom',
+          component: TableRoleEditorComponent,
         },
       },
     },

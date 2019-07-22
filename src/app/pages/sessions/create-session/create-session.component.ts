@@ -1,6 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import { NbDateService, NbDialogService } from '@nebular/theme';
-import { SessionsService } from '../../../services/sessions.service';
 import { LocalDataSource } from 'ng2-smart-table';
 
 import { SessionCreate } from '../../../data-models/SessionCreate'; 
@@ -13,6 +12,9 @@ import { TravelDialogComponent } from '../confirm-dialogs/travel-dialog.componen
 import '../../editors/ckeditor/ckeditor.loader';
 import 'ckeditor';
 
+import { SessionsService } from '../../../services/sessions.service';
+import { GeneralService } from '../../../services/general.service';
+
 @Component({
   selector: 'ngx-create-session',
   styleUrls: ['./create-session.component.scss'],
@@ -22,12 +24,9 @@ export class CreateSessionComponent implements OnDestroy, OnInit {
 
   session: SessionCreate;
   validName: boolean;
-
-  minStart: Date;
-  minEnd: Date;
-
-  startDate: Date; 
-  endDate: Date;
+  session_tags: string[] = [];
+  userTags: string[] = [];
+  tagInserted: string = "";
 
   images :CaseStudy[];
   selectedImage: CaseStudy;
@@ -35,20 +34,19 @@ export class CreateSessionComponent implements OnDestroy, OnInit {
 
   users :InvUser[];
   user_perms: any[];
+  user_roles: any[];
   groups: string[] = [];
 
-  dropdownList = [];
-  selectedItems = [];
-  dropdownSettings = {};
-  dropdownPermsSettings = {};
+  minDate: Date;
+  startDate: Date; 
+  endDate: Date;
 
-  dropdownPermsList = [
-    {"id":"movementPermission","itemName":"Movement", "category": "Image"},
-    {"id":"flipPermission","itemName":"Flip", "category": "Image"},
-    {"id":"annotationPermission","itemName":"Annotation", "category": "Image"},
-    {"id":"adjustmentPermission","itemName":"Adjustment", "category": "Image"},
-    {"id":"moderatorPermission","itemName":"Moderator", "category": "Moderation"},
-  ];
+  dropdownList = [];
+  dropdown_tagsList = [];
+  selectedItems = [];
+  selectedTags = [];
+  dropdownSettings = {};
+  dropdownTagsSettings = {};
 
   editorData: any;
 
@@ -89,14 +87,15 @@ export class CreateSessionComponent implements OnDestroy, OnInit {
 
   constructor(protected dateService: NbDateService<Date>,
               protected dialogService: NbDialogService,
-              protected sessionsService: SessionsService) {
+              protected sessionsService: SessionsService,
+              protected generalService: GeneralService) {
     
     this.session = new SessionCreate();
 
     this.users = [];
     this.user_perms = [];
-    this.minStart = this.dateService.today();
-    this.minEnd = this.minStart;
+    this.user_roles = [];
+    this.minDate = this.dateService.today();
     this.editorData = "";
 
     this.images = [new CaseStudy(), new CaseStudy(), new CaseStudy(), new CaseStudy()];
@@ -131,6 +130,12 @@ export class CreateSessionComponent implements OnDestroy, OnInit {
       (err: any) => { console.log(err); }
     );
 
+    let tmp_tags = this.generalService.getDefaultTags();
+    for(var i = 1; i<=tmp_tags.length; i++){
+      let obj = {"id": i, "itemName": tmp_tags[i-1]};
+      this.dropdown_tagsList.push(obj);
+      this.selectedTags.push(obj);
+    }
   }
   ngOnInit() {
 
@@ -142,14 +147,16 @@ export class CreateSessionComponent implements OnDestroy, OnInit {
       selectAllText:'Select All',
       unSelectAllText:'UnSelect All',
       enableSearchFilter: true,
+      badgeShowLimit: 3,
     };
 
-    this.dropdownPermsSettings = { 
+    this.dropdownTagsSettings = { 
       singleSelection: false, 
-      text:"Select Perms",
+      text:"Select Tags",
       selectAllText:'Select All',
       unSelectAllText:'UnSelect All',
       enableSearchFilter: true,
+      badgeShowLimit: 3,
     };
 
   }
@@ -157,18 +164,16 @@ export class CreateSessionComponent implements OnDestroy, OnInit {
   ngOnDestroy() {
   }
 
-  addUser(event){
-    for(let i = 0; i<event.usersToAdd; i++){
-      this.users.push(new InvUser("", event.viewOnlyAdd));
-      this.user_perms.push([]);
+  addTag(){
+    if(this.tagInserted.length > 2)
+      this.userTags.push(this.tagInserted)
+    else{
+      //show error
     }
   }
 
-  removeUser(index: number){
-    if(this.users.length > 1){
-      this.users.splice(index,1);
-      this.user_perms.splice(index,1);
-    }
+  removeTag(index: number){
+    this.userTags.splice(index,1);
   }
 
   onRowSelect(event) {
@@ -188,19 +193,33 @@ export class CreateSessionComponent implements OnDestroy, OnInit {
     if(this.editorData)
       this.session.email_message = this.editorData;
     
+    //Setting up the tags
+    for(var i = 0; i < this.selectedTags.length; i++){
+      this.session_tags.push(this.selectedTags[i]['itemName']);
+    }
+
+    this.session_tags = [...this.session_tags, ...this.userTags];
+    this.session.tags = this.session_tags;
+
     if(this.users.length > 0){
       for(var i = 0; i<this.users.length; i++){
         let perms = {};
+        let role = "";
         for(var e = 0; e<this.user_perms[i].length; e++){
           perms[this.user_perms[i][e]['id']] = true;
         }
         this.users[i].permissions = perms;
+        
+        //By default role is already guest, so if it doesn't exist we dont do nothing
+        if(this.user_roles[i][0]){
+          role = this.user_roles[i][0]['id'];
+          this.users[i].role = role;
+        }
+
       }
       this.session.participatingUsers = this.users;
-    }
-
-    console.log(this.session.participatingUsers);
-      
+      console.log(this.session.participatingUsers);
+    }      
 
     for(var i = 0; i<this.selectedItems.length; i++){
       this.groups.push(this.selectedItems[i]['itemName']);
@@ -208,11 +227,10 @@ export class CreateSessionComponent implements OnDestroy, OnInit {
     }
 
     this.session.caseStudy = this.selectedImage;
-
+   
     this.sessionsService.createSession(this.session).subscribe(
-      (res: any) => { 
+      (res: any) => {
         if(res.redirect_link){
-          console.log(res);
           this.open(res.redirect_link);
         }
       },

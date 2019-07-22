@@ -5,6 +5,7 @@ import { GroupsComponent } from './groups.component';
 import { CreateGroupComponent } from './create-group/create-group.component';
 import { MyGroupsComponent } from './my-groups/my-groups.component';
 import { GroupDetailsComponent } from './group-details/group-details.component';
+import { NotFoundComponent } from '../miscellaneous/not-found/not-found.component';
 
 import { AuthGuard } from '../../services/auth-guard.service';
 
@@ -28,6 +29,10 @@ const routes: Routes = [{
       canActivate: [AuthGuard],
       component: GroupDetailsComponent,
     },
+    {
+      path: '**',
+      component: NotFoundComponent,
+    }
   ],
 }];
 

@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { MainMenuComponent } from './main-menu.component';
 import { MainMenuPageComponent } from './menu-page/main-menu-page.component';
 import { TermsPageComponent } from './terms-page/terms-page.component';
+import { NotFoundComponent } from '../pages/miscellaneous/not-found/not-found.component';
 
 
 const routes: Routes = [{
@@ -18,6 +19,10 @@ const routes: Routes = [{
       path: 'terms',
       component: TermsPageComponent,
     },
+    {
+      path: '**',
+      component: NotFoundComponent,
+    }
     
   ],
 }];

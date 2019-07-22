@@ -33,7 +33,7 @@ import { Component, Input, OnInit } from '@angular/core';
             <ng-template #anonUser>
                 <nb-user style="justify-content: space-around;" nbTooltip="This user might not be registered" nbTooltipPlacement="top"
                 badgeStatus="warning" badgeText="?" 
-                [picture]="value.photo_url" [name]="value.email" [title]="value.firstname + ' ' + value.lastname" size="medium">
+                [picture]="value.photo_url" [name]="''" [title]="value.firstname + ' ' + value.lastname" size="medium">
                 </nb-user>
             </ng-template> 
         </div>
@@ -49,7 +49,6 @@ export class TableUsersViewComponent implements OnInit {
     @Input() value: any;
 
     ngOnInit() {
-        console.log(this.value);
     }
 
 }

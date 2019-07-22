@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 
 import { ThemeModule } from '../@theme/theme.module';
+import { MiscellaneousModule } from '../pages/miscellaneous/miscellaneous.module';
 
 import { MainMenuComponent } from './main-menu.component';
 import { MainMenuPageComponent } from './menu-page/main-menu-page.component';
@@ -20,6 +21,7 @@ const SERVICES = [
 
 const MODULES = [
   ThemeModule,
+  MiscellaneousModule,
   MainMenuRoutingModule,
 ];
 

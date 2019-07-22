@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { ToasterModule } from 'angular2-toaster';
 
 import { ThemeModule } from '../../@theme/theme.module';
+import { MiscellaneousModule } from '../miscellaneous/miscellaneous.module';
 import { SessionsRoutingModule } from './sessions-routing.module';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { CKEditorModule } from 'ng2-ckeditor';
@@ -58,6 +59,7 @@ const SERVICES = [
 
 const MODULES = [
   ThemeModule,
+  MiscellaneousModule,
   SessionsRoutingModule,
   Ng2SmartTableModule,
   ToasterModule.forRoot(),

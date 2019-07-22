@@ -19,7 +19,40 @@
       </nb-step>
       <nb-step [label]="labelTwo">
         <ng-template #labelTwo>Give it a name</ng-template>
-        <input type="text" [(ngModel)]="session.name" nbInput fullWidth placeholder="Session Name">
+        <div class="row">
+          <div class="col-sm-6">
+            <label for="sesionName">Session Name</label>
+            <input type="text" [(ngModel)]="session.name" nbInput fullWidth name="sessionName" placeholder="Session Name">
+            <input type="text" [(ngModel)]="tagInserted" nbInput placeholder="Add a custom tag">
+            <button nbButton shape="rectangle" size="tiny" (click)="addTag()">+</button>
+          </div>
+
+          <div class="col-sm-6">
+            <label>Default tags</label>
+            <angular2-multiselect
+            [data]="dropdown_tagsList"
+            [(ngModel)]="selectedTags"
+            [settings]="dropdownTagsSettings"
+            >
+            </angular2-multiselect>
+            <div style="margin-top: 1em;">
+              <label>Your Tags</label>
+              <nb-list *ngIf="userTags.length > 0 else noTags">
+                <nb-list-item *ngFor="let tag of userTags; let i = index">
+                  <div style="display: flex; justify-content: space-between">
+                    <div style="margin-top: 1em; margin-bottom: 1em;">{{ tag }}</div>
+                    <div> 
+                      <button nbButton shape="rectangle" size="tiny" (click)="removeTag(i)">X</button>
+                    </div>
+                  </div>
+                </nb-list-item>
+              </nb-list>
+              <ng-template #noTags><br>You have not added any tags</ng-template>
+            </div>
+            
+          </div>
+
+        </div>
 
         <button nbButton nbStepperPrevious>prev</button>
         <button nbButton nbStepperNext>next</button>
@@ -27,7 +60,7 @@
       <nb-step [label]="labelThree">
         <ng-template #labelThree>Choose its members</ng-template>
         <div class="row">
-          <div class="col-sm-6">
+          <div class="col-sm-12">
             <label class="label">Select a group(s):</label>
             <angular2-multiselect
             [data]="dropdownList"
@@ -36,29 +69,8 @@
             >
             </angular2-multiselect>
           </div>
-          <div class="col-sm-6">
-            <ngx-add-user-widget (add)="addUser($event)"></ngx-add-user-widget>
-            <div class="row" style="margin-top: 10px;" *ngFor="let user of users; let i = index">
-              <div class="input-group col-sm-4">
-                <input type="email" [(ngModel)]="user.email" nbInput fullWidth placeholder="User Email">
-              </div>
-              
-              <div class="col-sm-6">
-                  <angular2-multiselect class="col-sm-6"
-                  [data]="dropdownPermsList"
-                  [(ngModel)]="user_perms[i]"
-                  [settings]="dropdownPermsSettings"
-                  >
-                </angular2-multiselect>
-
-              </div>
-              <div class="col-sm-2">
-                <nb-actions size="medium">   
-                  <nb-action icon="nb-close" (click)="removeUser(i)" nbTooltip="Remove User" nbTooltipPlacement="top"></nb-action> 
-                </nb-actions>
-              </div>
-              
-            </div>
+          <div class="col-sm-12">
+            <ngx-add-user-widget [members]="users" [user_perms]="user_perms" [user_roles]="user_roles"></ngx-add-user-widget>
           </div>
         </div>
         <button nbButton nbStepperPrevious>prev</button>
@@ -75,10 +87,10 @@
             <h4>Configure Access dates</h4>
 
             <div class="row" style="justify-content: space-between;">
-              <input nbInput [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" [(ngModel)]="startDate" placeholder="Start Date">
+              <input nbInput [min]="minDate" [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" [(ngModel)]="startDate" placeholder="Start Date">
               <owl-date-time #dt1></owl-date-time>
 
-              <input nbInput [owlDateTime]="dt2" [owlDateTimeTrigger]="dt2" [(ngModel)]="endDate" placeholder="End Date">
+              <input nbInput [min]="startDate" [owlDateTime]="dt2" [owlDateTimeTrigger]="dt2" [(ngModel)]="endDate" placeholder="End Date">
               <owl-date-time #dt2></owl-date-time>
             </div>
 

@@ -9,6 +9,26 @@ const httpOptions ={
   withCredentials: true,
 };
 
+const session_tags = [
+  "AAB", 
+  "AAC",
+  "TAC",
+  "CCE",
+  "ERR",
+];
+
+const perms = [
+  {"id":"movementPermission","itemName":"Movement"},
+  {"id":"flipPermission","itemName":"Flip"},
+  {"id":"annotationPermission","itemName":"Annotation"},
+  {"id":"adjustmentPermission","itemName":"Adjustment"},
+];
+
+const roles = [
+  {"id":"moderator","itemName":"Moderator"},
+  {"id":"guest","itemName":"Guest"},
+];
+
 @Injectable()
 export class GeneralService {
 
@@ -39,6 +59,18 @@ export class GeneralService {
 
   getGoogleUserData(token: any): Observable<any>{
     return this.http.get(this.google_api_user_data_url + token, httpOptions)
+  }
+
+  getDefaultTags(): string[]{
+    return session_tags;
+  }
+
+  getPerms(): any[]{
+    return perms;
+  }
+
+  getRoles(): any[]{
+    return roles;
   }
 
 }

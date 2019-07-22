@@ -59,6 +59,18 @@
                                     <input style="margin-left: 0.5em;" nbInput [owlDateTime]="dt2" [owlDateTimeTrigger]="dt2" placeholder="End Date" [(ngModel)]="session.endDate">
                                     <owl-date-time [startAt]="session?.endDate" #dt2></owl-date-time>
                                 </div>
+
+                                <br>
+
+                                <div>
+                                    <h4>Session Tags</h4>
+                                    <angular2-multiselect
+                                    [data]="dropdown_tagsList"
+                                    [(ngModel)]="selectedTags"
+                                    [settings]="dropdownTagsSettings"
+                                    >
+                                    </angular2-multiselect>
+                                </div>
                                 
                             </div>
 
@@ -66,7 +78,7 @@
                     </nb-tab>
                     
                 </nb-tabset>
-                <button *ngIf="showSaveBtn" nbButton (click)="editSession()">Save Changes</button>
+                <button *ngIf="!showSaveBtn" nbButton (click)="editSession()">Save Changes</button>
             </nb-card-body>
         </nb-card>
     </div>
