@@ -25,8 +25,8 @@ const perms = [
 ];
 
 const roles = [
-  {"id":"moderator","itemName":"Moderator"},
-  {"id":"guest","itemName":"Guest"},
+  {"id":"Moderator","itemName":"Moderator"},
+  {"id":"Guest","itemName":"Guest"},
 ];
 
 @Injectable()

@@ -31,14 +31,14 @@ const routes: Routes = [{
     },
 
     {
-    path: '',
-    redirectTo: 'sessions',
-    pathMatch: 'full'
+      path: '',
+      redirectTo: 'sessions',
+      pathMatch: 'full'
     },
     
     {
-    path: '**',
-    component: NotFoundComponent,
+      path: '**',
+      component: NotFoundComponent,
     }
   ],
 }, 

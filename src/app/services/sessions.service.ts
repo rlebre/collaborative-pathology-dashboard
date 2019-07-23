@@ -26,6 +26,24 @@ export class SessionsService {
         return this.http.get(this.baseUrl, httpOptions);
     }
 
+    getStudyIds(): Observable<any>{
+        var dicoogleData = {
+            query: "Modality:SM",
+            field: ["SOPInstanceUID", "SeriesInstanceUID", "StudyInstanceUID", "PatientName", "StudyDate"],
+            keyword: "true"
+        };
+        return this.http.get("http://demo.dicoogle.com/search", {params: dicoogleData});
+            
+        function filter(instances){
+            var map = new Map();
+            for (var i in instances.results) {
+                map.set(instances.results[i].fields["SeriesInstanceUID"], instances.results[i].fields);
+            } 
+            return map;
+        }
+                
+    }
+
     createSession(session: SessionCreate): Observable<any>{
         let body = {'data': session};
         return this.http.post(this.baseUrl, body, httpOptions);

@@ -3,12 +3,14 @@
 @import '~@nebular/theme/styles/global/breakpoints';
 
 @include nb-install-component() {
-  nb-tabset {
-    height: 100%;
-  }
-
+  
   nb-tab {
     padding: nb-theme(padding);
+  }
+
+
+  /deep/ nb-card-body nb-tab {
+    overflow: visible;
   }
 
   .member {

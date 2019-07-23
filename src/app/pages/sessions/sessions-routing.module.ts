@@ -15,14 +15,14 @@ const routes: Routes = [
   component: SessionsComponent,
   children: [
     {
-      path: 'create-session',
-      canActivate: [AuthGuard],
-      component: CreateSessionComponent,
-    },
-    {
       path: 'dashboard',
       canActivate: [AuthGuard],
       component: DashboardComponent,
+    },
+    {
+      path: 'create-session',
+      canActivate: [AuthGuard],
+      component: CreateSessionComponent,
     },
     {
       path: 'sessionDetails/:sessionHash',
@@ -38,7 +38,8 @@ const routes: Routes = [
     {
       path: '**',
       component: NotFoundComponent,
-    }
+    },
+    
   ],
 }
 ];
@@ -53,4 +54,5 @@ export class SessionsRoutingModule {
 export const routedComponents = [
   CreateSessionComponent,
   DashboardComponent,
+  NotFoundComponent
 ];

@@ -3,8 +3,8 @@ import { NgModule } from '@angular/core';
 import { PagesComponent } from './pages.component';
 
 import { PagesRoutingModule } from './pages-routing.module';
-import { ThemeModule } from '../@theme/theme.module';
 import { MiscellaneousModule } from './miscellaneous/miscellaneous.module';
+import { ThemeModule } from '../@theme/theme.module';
 import { UserProfileComponent } from './user/user-profile.component';
 import { TableLinkComponent } from './extra-table-components/table-link.component';
 import { TableLinkSessionComponent } from './extra-table-components/table-link-session.component';

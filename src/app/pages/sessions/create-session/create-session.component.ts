@@ -98,34 +98,35 @@ export class CreateSessionComponent implements OnDestroy, OnInit {
     this.minDate = this.dateService.today();
     this.editorData = "";
 
-    this.images = [new CaseStudy(), new CaseStudy(), new CaseStudy(), new CaseStudy()];
-    this.images[0].imageUrl = "https://i.imgur.com/5dHXrIE.png";
-    this.images[0].seriesID = 2;
-    this.images[0].studyID = 2;
-
-    this.images[1].imageUrl = "https://i.imgur.com/5dHXrIE.png";
-    this.images[1].seriesID = 3;
-    this.images[1].studyID = 3;
-
-
-    this.images[2].imageUrl = "https://i.imgur.com/5dHXrIE.png";
-    this.images[2].seriesID = 3;
-    this.images[2].studyID = 3;
-
-
-    this.images[3].imageUrl = "https://i.imgur.com/5dHXrIE.png";
-    this.images[3].seriesID = 4;
-    this.images[3].studyID = 4;
-
-    this.source.load(this.images);
+    this.images = [];
 
     this.sessionsService.getSetupInfo().subscribe(
       (res: any) => {
+        console.log(res);
         let userGroups: string[] = res.data.userGroups;
         for(var i = 1; i<=userGroups.length; i++){
           let obj = {"id": i, "itemName": userGroups[i-1]};
           this.dropdownList.push(obj);
         }
+      },
+      (err: any) => { console.log(err); }
+    );
+
+    this.sessionsService.getStudyIds().subscribe(
+      (res: any) => { 
+        
+        var map = new Map();
+        for (var i in res.results) {
+          map.set(res.results[i].fields["SeriesInstanceUID"], res.results[i]);
+        }
+        map.forEach(function(value, key){
+          let study: CaseStudy = new CaseStudy();
+          study.seriesID = value.fields.SeriesInstanceUID;
+          study.studyID = value.fields.StudyInstanceUID;
+          study.imageUrl = "https://i.imgur.com/5dHXrIE.png";
+          this.source.append(study);
+          this.images.push(study);
+        }, this);
       },
       (err: any) => { console.log(err); }
     );

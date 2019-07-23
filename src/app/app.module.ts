@@ -9,8 +9,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CoreModule } from './@core/core.module';
+import { MiscellaneousModule } from './pages/miscellaneous/miscellaneous.module';
 
 import { AppComponent } from './app.component';
+import { NotFoundComponent } from './pages/miscellaneous/not-found/not-found.component';
+
 import { AppRoutingModule } from './app-routing.module';
 import { ThemeModule } from './@theme/theme.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -22,7 +25,6 @@ import { UserService } from './services/user-service';
 
 @NgModule({
   declarations: [AppComponent],
-  //entryComponents: [DeleteDialogComponent, TravelDialogComponent], 
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -32,6 +34,8 @@ import { UserService } from './services/user-service';
     NgbModule.forRoot(),
     ThemeModule.forRoot(),
     CoreModule.forRoot(),
+  ],
+  exports:[
   ],
   bootstrap: [AppComponent],
   providers: [

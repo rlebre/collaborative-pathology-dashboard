@@ -34,21 +34,23 @@ export class TableRoleEditorComponent extends DefaultEditor implements OnInit, A
 
   ngOnInit(){
     this.role = this.cell.getValue();
+    console.log("My role " + this.role);
     this.dropdownList = this.generalService.getRoles();
     this.aux_dict = {
       'moderator' : this.dropdownList[0],
       'guest' : this.dropdownList[1],
     };
+
     if(this.role == ""){
       this.role = "";
       this.cell.newValue = this.role;
     }
 
     switch(this.role){
-      case 'moderator':
+      case 'Moderator':
         this.selectedItems.push(this.aux_dict['moderator']);
         break;
-      case 'guest':
+      case 'Guest':
         this.selectedItems.push(this.aux_dict['guest']);
         break;        
     }

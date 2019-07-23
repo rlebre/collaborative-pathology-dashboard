@@ -15,6 +15,10 @@
     }
   }
 
+  /deep/ nb-card-body {
+    overflow: visible;
+  }
+
   /deep/ nb-stepper .step-content {
     text-align: center;
 

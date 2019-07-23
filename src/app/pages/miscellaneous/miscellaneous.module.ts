@@ -1,14 +1,17 @@
 import { NgModule } from '@angular/core';
 import { ThemeModule } from '../../@theme/theme.module';
-import { MiscellaneousRoutingModule, routedComponents } from './miscellaneous-routing.module';
+import { NotFoundComponent } from './not-found/not-found.component';
+
+const COMPONENTS = [
+  NotFoundComponent,
+]
 
 @NgModule({
   imports: [
     ThemeModule,
-    MiscellaneousRoutingModule,
   ],
   declarations: [
-    ...routedComponents,
+    ...COMPONENTS
   ],
 })
 export class MiscellaneousModule { }

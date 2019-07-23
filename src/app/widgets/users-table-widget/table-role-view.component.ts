@@ -17,9 +17,9 @@ import { Component, Input, OnInit } from '@angular/core';
     template: `
 
         <div class="icon">
-            <i *ngIf="value == 'guest'" class="icon fas fa-user" style="color: rgb(208, 51, 240)" nbTooltip="Guest" nbTooltipPlacement="top"></i>
-            <i *ngIf="value == 'moderator'" class="icon fas fa-user-tie" style="color: green" nbTooltip="Moderator" nbTooltipPlacement="top"></i>
-            <i *ngIf="value == 'owner'" class="icon fas fa-user-check" style="color: red" nbTooltip="Owner" nbTooltipPlacement="top"></i>       
+            <i *ngIf="value == 'Guest'" class="icon fas fa-user" style="color: rgb(208, 51, 240)" nbTooltip="Guest" nbTooltipPlacement="top"></i>
+            <i *ngIf="value == 'Moderator'" class="icon fas fa-user-tie" style="color: green" nbTooltip="Moderator" nbTooltipPlacement="top"></i>
+            <i *ngIf="value == 'Owner'" class="icon fas fa-user-check" style="color: red" nbTooltip="Owner" nbTooltipPlacement="top"></i>       
         </div>
         
     `,

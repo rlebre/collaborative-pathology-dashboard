@@ -30,6 +30,9 @@ export class AddUserWidgetComponent implements OnInit, OnDestroy {
     badgeShowLimit: 1,
   };
 
+  rootPermsSelectedItems: any[] = [];
+  rootRolesSelectedItems: any[] = [];
+  
   dropdownPermsList = [];
   dropdownRolesList = [];
 
@@ -45,8 +48,8 @@ export class AddUserWidgetComponent implements OnInit, OnDestroy {
   addUser(){
     for(let i = 0; i<this.usersToAdd; i++){
       this.members.push(new InvUser("", {}, "guest")); 
-      this.user_perms.push([]);
-      this.user_roles.push([]);
+      this.user_perms.push([...this.rootPermsSelectedItems]);
+      this.user_roles.push([...this.rootRolesSelectedItems]);
     }
     this.fewUsers = false; 
   }

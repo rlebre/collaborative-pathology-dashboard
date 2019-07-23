@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { NgxAuthRoutingModule } from './auth-routing.module';
+import { MiscellaneousModule } from '../pages/miscellaneous/miscellaneous.module';
 import { NbAuthModule } from '@nebular/auth';
 import { 
   NbAlertModule,
@@ -12,7 +13,6 @@ import {
   NbInputModule
 } from '@nebular/theme';
 
-import { MiscellaneousModule } from './../pages/miscellaneous/miscellaneous.module';
 
 import { NgxLoginComponent } from './login/login.component';
 import { NgxRegisterComponent } from './register/register.component';
@@ -29,9 +29,8 @@ import { OAuth2CallbackComponent } from './google-login/google-login-callback.co
     NbButtonModule,
     NbCheckboxModule,
     NgxAuthRoutingModule,
-    MiscellaneousModule,
-
     NbAuthModule,
+    MiscellaneousModule,
   ],
   declarations: [
     NgxLoginComponent,
