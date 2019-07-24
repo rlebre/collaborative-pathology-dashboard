@@ -28,7 +28,27 @@
                 <nb-tabset fullWidth>
                     
                     <nb-tab tabTitle="Session Members">
-                        <ngx-users-table-widget *ngIf="members" [members]="members"></ngx-users-table-widget>                    
+                        <div class="user_perms">
+                            
+                            <div style="display: flex; justify-content: flex-start;">
+                                <span>My permissions in the session:</span>
+                                <div>
+                                    <span *ngIf="no_perms else perms" style="color: red;">No Permissions Granted</span>
+                                    <ng-template #perms>
+                                        <div class="icons">
+                                            <i *ngIf="my_data.permissions.movementPermission" class="icon fas fa-arrows-alt" style="color: green" nbTooltip="Has Movement Permission" nbTooltipPlacement="top"></i>
+                                            <i *ngIf="my_data.permissions.flipPermission" class="icon fas fa-undo" style="color: rgb(0, 119, 128)" nbTooltip="Has Flip Permission" nbTooltipPlacement="top"></i>
+                                            <i *ngIf="my_data.permissions.annotationPermission" class="icon fas fa-pencil-alt" style="color: rgb(0, 23, 128)" nbTooltip="Has Annotation Permission" nbTooltipPlacement="top"></i>
+                                            <i *ngIf="my_data.permissions.adjustmentPermission" class="icon fas fa-adjust" style="color: rgb(253, 225, 97)" nbTooltip="Has Adjustment Permission" nbTooltipPlacement="top"></i>
+                                        </div>
+                                    </ng-template> 
+                                </div>
+                            </div>
+                            <span>My Role in the session: {{ my_data.role }}</span>
+                        </div>
+                        <div style="margin-top: 1em;">
+                            <ngx-users-table-widget *ngIf="members" [members]="members" [new_members]="new_members" [isOwner]="isOwner"></ngx-users-table-widget>                    
+                        </div>
                     </nb-tab>
                     
                     <nb-tab tabTitle="Session Details">

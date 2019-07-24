@@ -19,6 +19,8 @@ import { InvUser } from '../../data-models/InvUser';
 export class UsersTableWidgetComponent implements OnInit, OnDestroy {
 
   @Input() members: InvUser[];
+  @Input() isOwner: boolean;
+  @Input() new_members: InvUser[];
 
   source: LocalDataSource = new LocalDataSource();
   deletedItems: any[] = [];
@@ -28,6 +30,7 @@ export class UsersTableWidgetComponent implements OnInit, OnDestroy {
       addButtonContent: '<i class="nb-plus"></i>',
       createButtonContent: '<i class="nb-checkmark"></i>',
       cancelButtonContent: '<i class="nb-close"></i>',
+      confirmCreate: true,
     },
     edit: {
       editButtonContent: '<i class="nb-edit"></i>',
@@ -86,7 +89,15 @@ export class UsersTableWidgetComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    console.log(this.members);
+
+    //If this user does not have permissions, we remove the editing buttons
+    if(!this.isOwner){
+      this.settings.actions['edit']=false;
+      this.settings.actions['add']=false;
+      this.settings.actions['delete']=false;
+    }
+    if(!this.new_members)
+      this.new_members = [];
     this.source.load(this.members);
   }
 
@@ -96,8 +107,27 @@ export class UsersTableWidgetComponent implements OnInit, OnDestroy {
   }
   
   onDelete(event){
+    //verify if its in the new members, only if there are any
+    if(this.new_members.length > 0){
+      for(var i = this.new_members.length -1 ; i>=0; i--){
+        if(this.new_members[i]['email'] == event.data.email){
+          this.new_members.splice(i,1);
+          break;
+        }
+      }
+    }
+    
     this.deletedItems.push(event.data);
-    this.source.remove(event.data);
+
+    //For some reason this.members is not updated, so we have to do it manually
+    const index = event.source.data.indexOf(event.data);
+    event.source.data.splice(index,1);
+    event.confirm.resolve();
+  }
+
+  onCreate(event){
+    this.new_members.push(event.newData);
+    event.confirm.resolve(event.newData);
   }
 
   ngOnDestroy() {

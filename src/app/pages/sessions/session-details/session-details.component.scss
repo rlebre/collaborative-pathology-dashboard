@@ -36,6 +36,10 @@
     cursor: pointer;
   }
 
+  .icons > * {
+    padding-left: 1em; 
+  }
+
   /deep/ ngx-tab1, /deep/ ngx-tab2 {
     display: block;
     padding: nb-theme(padding);

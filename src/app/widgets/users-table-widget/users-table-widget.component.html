@@ -1,6 +1,6 @@
 
 <ng2-smart-table style="text-align: center !important" 
-[settings]="settings" [source]="source" (deleteConfirm)="onDelete($event)">
+[settings]="settings" [source]="source" (deleteConfirm)="onDelete($event)" (createConfirm)="onCreate($event)">
 </ng2-smart-table>
 
 <button *ngIf="deletedItems.length != 0" nbButton (click)="undo()" style="margin-top: 1em;">Undo</button>

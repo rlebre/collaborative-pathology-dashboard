@@ -17,8 +17,9 @@ import { ToastrService } from '../../../services/toastr.service';
 })
 export class GroupDetailsComponent implements OnInit, OnDestroy {
 
-  private groupId:string; 
+  private groupId: string; 
   members: InvUser[];
+  isOwner = true;
   group :Group; 
   groupName: string; 
   showSaveButton: boolean;
@@ -65,6 +66,7 @@ export class GroupDetailsComponent implements OnInit, OnDestroy {
 
   saveGroup(){
     this.group.setGroupName(this.groupName);
+    console.log(this.members);
     this.group.setUsers(this.members);
     this.groupsService.updateGroup(this.group).subscribe(
       (res: any) => {

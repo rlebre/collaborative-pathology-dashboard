@@ -7,7 +7,7 @@
     </div>
   </nb-card-header>
   <nb-card-body>
-    <ngx-users-table-widget *ngIf="members" [members]="members"></ngx-users-table-widget>
+    <ngx-users-table-widget *ngIf="members" [isOwner]="isOwner" [members]="members"></ngx-users-table-widget>
   </nb-card-body>
   
 </nb-card>

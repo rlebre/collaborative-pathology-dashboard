@@ -26,7 +26,12 @@ export class SessionDetailsComponent implements OnDestroy, OnInit {
 
   sesssionHash: number; 
 
+  my_data: InvUser = new InvUser("",{},"");
+  isOwner: boolean;
+  no_perms: boolean;
+
   members: InvUser[];
+  new_members: InvUser[] = [];
   links: string[];
 
   minStart: Date;
@@ -34,8 +39,6 @@ export class SessionDetailsComponent implements OnDestroy, OnInit {
   startAt: Date;
 
   images :CaseStudy[];
-
-  users :InvUser[];
 
   dropdown_tagsList = [];
   selectedTags = [];
@@ -55,7 +58,6 @@ export class SessionDetailsComponent implements OnDestroy, OnInit {
 
    
       this.sesssionHash = +this.route.snapshot.paramMap.get('sessionHash');
-      this.users = [];
 
       this.dropdownTagsSettings = { 
         singleSelection: false, 
@@ -72,9 +74,14 @@ export class SessionDetailsComponent implements OnDestroy, OnInit {
 
     this.sessionService.getSessionDetails(this.sesssionHash).subscribe(
       (res: any) => {
+        console.log(res);
         this.session = res.data;
         this.members = this.session.participatingUsers;
         this.links = res.urls;
+        this.my_data = res.my_data;
+        if(!this.my_data.permissions)
+          this.no_perms = true;
+        this.isOwner = res.isOwner;
         if(this.session.startDate)
           this.startAt = new Date(res.data.startDate);
         for(var i = 1; i<=this.session.tags.length; i++){
@@ -96,11 +103,6 @@ export class SessionDetailsComponent implements OnDestroy, OnInit {
     this.showSaveBtn = true;
   }
 
-  removeUser(index: number){
-    if(this.users.length > 1)
-      this.users.splice(index,1);
-  }
-
   joinSession(){
     window.location.href= this.links[0];
   }
@@ -112,6 +114,10 @@ export class SessionDetailsComponent implements OnDestroy, OnInit {
   editSession(){
 
     this.session.participatingUsers = this.members;
+    this.session.participatingUsers.push(this.my_data);
+    console.log("MY NEW MEMBERS");
+    console.log(this.new_members);
+    this.session.new_members = this.new_members;
     let session_tags: string[] = [];
     for(var i = 0; i < this.selectedTags.length; i++){
       session_tags.push(this.selectedTags[i]['itemName']);

@@ -9,6 +9,7 @@ export class SessionDetails{
     public startDate: Date;
     public endDate: Date;
     public participatingUsers: InvUser[];
+    public new_members: InvUser[];
     public groups: string[];
     public tags: string[];
     public caseStudy: CaseStudy;

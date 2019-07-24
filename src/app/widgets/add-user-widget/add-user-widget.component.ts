@@ -47,7 +47,7 @@ export class AddUserWidgetComponent implements OnInit, OnDestroy {
 
   addUser(){
     for(let i = 0; i<this.usersToAdd; i++){
-      this.members.push(new InvUser("", {}, "guest")); 
+      this.members.push(new InvUser("", {}, "Guest")); 
       this.user_perms.push([...this.rootPermsSelectedItems]);
       this.user_roles.push([...this.rootRolesSelectedItems]);
     }
