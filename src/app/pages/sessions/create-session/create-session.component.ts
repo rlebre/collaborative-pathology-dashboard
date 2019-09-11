@@ -163,6 +163,25 @@ export class CreateSessionComponent implements OnDestroy, OnInit {
   }
 
   ngOnDestroy() {
+
+    //Destroying CKEDITOR Iframe to avoid error propagation
+    this.destroyEditor();
+    
+  }
+
+  public destroyEditor(): void {
+    const editor = window['CKEDITOR'];
+    if (editor.instances) {
+        for (const editorInstance in editor.instances) {
+            if (editor.instances.hasOwnProperty(editorInstance) && 
+                editor.instances[editorInstance]) {
+                editor.instances[editorInstance].destroy();
+                editor.instances[editorInstance] = {
+                    destroy: () => true,
+                };
+            }
+        }
+    }
   }
 
   addTag(){

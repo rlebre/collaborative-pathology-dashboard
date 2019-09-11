@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 import './ckeditor.loader';
 import 'ckeditor';
-
+//<ckeditor [config]="{ extraPlugins: 'divarea', height: '320' }"></ckeditor>
 @Component({
   selector: 'ngx-ckeditor',
   template: `
@@ -11,7 +11,7 @@ import 'ckeditor';
         CKEditor
       </nb-card-header>
       <nb-card-body>
-        <ckeditor [config]="{ extraPlugins: 'divarea', height: '320' }"></ckeditor>
+        <ckeditor [config]="{ height: '320' }"></ckeditor>
       </nb-card-body>
     </nb-card>
   `,

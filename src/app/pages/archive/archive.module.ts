@@ -5,6 +5,7 @@ import { ToasterModule } from 'angular2-toaster';
 import { ThemeModule } from '../../@theme/theme.module';
 import { MiscellaneousModule } from '../miscellaneous/miscellaneous.module';
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
+import { ArchiveRoutingModule } from './archive-routing.module';
 
 // components
 import { ArchiveComponent } from './archive.component';
@@ -31,6 +32,7 @@ const MODULES = [
   ToasterModule.forChild(),
   NbDialogModule.forChild(),
   AngularMultiSelectModule,
+  ArchiveRoutingModule,
 ];
 
 const ENTRYCOMPONENTS = [
@@ -50,4 +52,4 @@ const ENTRYCOMPONENTS = [
     ...ENTRYCOMPONENTS,
   ],
 })
-export class GroupsModule { }
+export class ArchiveModule { }

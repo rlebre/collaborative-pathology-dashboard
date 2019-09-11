@@ -13,12 +13,12 @@ const routes: Routes = [{
   component: ArchiveComponent,
   children: [
     {
-      path: 'case-studies',
+      path: 'studies',
       canActivate: [AuthGuard],
       component: CaseStudiesComponent,
     },
     {
-      path: 'upload-study',
+      path: 'upload-studies',
       canActivate: [AuthGuard],
       component: UploadCaseStudyComponent,
     },

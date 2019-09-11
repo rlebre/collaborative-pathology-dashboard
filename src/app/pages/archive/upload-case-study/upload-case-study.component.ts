@@ -18,7 +18,6 @@ export class UploadCaseStudyComponent implements OnDestroy {
   nRead:number = 0; 
 
   constructor(private dialogService: NbDialogService, 
-              private sessionsService: SessionsService,
               private toastrService: ToastrService,
               private route: ActivatedRoute) {
     //this.source.load(this.data);

@@ -51,11 +51,11 @@
                         </div>
                     </nb-tab>
                     
-                    <nb-tab tabTitle="Session Details">
+                    <nb-tab tabTitle="Session Details" (click)="try()">
                         <div class="row">
                         
                             <div class="col-sm-6">
-                                <ckeditor [(ngModel)]="editorData" [config]="editorConfig"></ckeditor>
+                                <ckeditor [(ngModel)]="session.email_message" [config]="editorConfig"></ckeditor>
                             </div>
     
                             <div class="col-sm-6" style="text-align: center;" >

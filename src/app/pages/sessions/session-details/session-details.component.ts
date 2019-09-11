@@ -89,6 +89,9 @@ export class SessionDetailsComponent implements OnDestroy, OnInit {
           this.dropdown_tagsList.push(obj);
           this.selectedTags.push(obj);
         }
+        console.log(this.session.email_message);
+        //window['CKEDITOR'].instances['editor1'].setData(this.session.email_message);
+
         
       },
       (err: any) => { console.log(err); }
@@ -97,6 +100,7 @@ export class SessionDetailsComponent implements OnDestroy, OnInit {
   }
 
   ngOnDestroy() {
+    this.destroyEditor();
   }
 
   showSaveButton(event){
@@ -115,8 +119,6 @@ export class SessionDetailsComponent implements OnDestroy, OnInit {
 
     this.session.participatingUsers = this.members;
     this.session.participatingUsers.push(this.my_data);
-    console.log("MY NEW MEMBERS");
-    console.log(this.new_members);
     this.session.new_members = this.new_members;
     let session_tags: string[] = [];
     for(var i = 0; i < this.selectedTags.length; i++){
@@ -144,6 +146,25 @@ export class SessionDetailsComponent implements OnDestroy, OnInit {
       },
     });
 
+  }
+
+  try(){
+    console.log("Hi");
+  }
+
+  public destroyEditor(): void {
+    const editor = window['CKEDITOR'];
+    if (editor.instances) {
+        for (const editorInstance in editor.instances) {
+            if (editor.instances.hasOwnProperty(editorInstance) && 
+                editor.instances[editorInstance]) {
+                editor.instances[editorInstance].destroy();
+                editor.instances[editorInstance] = {
+                    destroy: () => true,
+                };
+            }
+        }
+    }
   }
 
 }
