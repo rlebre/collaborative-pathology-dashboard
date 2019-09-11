@@ -47,7 +47,7 @@ export class GeneralService {
   verifyOrCreateGoogleUser(token: any): Observable<any>{
     let customHeaders = new HttpHeaders();
     customHeaders = customHeaders.set('Content-type', 'application/json');
-    customHeaders = customHeaders.set('Access_token', token);
+    customHeaders = customHeaders.set('accessToken', token);
 
     let customOptions = {headers: customHeaders};
     return this.http.get(this.google_sign_in_url, customOptions);

@@ -204,7 +204,7 @@ export class CreateSessionComponent implements OnDestroy, OnInit {
 
     if(this.users.length > 0){
       for(var i = 0; i<this.users.length; i++){
-        let perms = {};
+        let perms = {"movementPermission": false, "flipPermission": false, "annotationPermission": false, "adjustmentPermission": false};
         let role = "";
         for(var e = 0; e<this.user_perms[i].length; e++){
           perms[this.user_perms[i][e]['id']] = true;

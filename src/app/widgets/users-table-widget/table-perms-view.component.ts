@@ -35,8 +35,13 @@ export class TablePermsViewComponent implements OnInit {
     no_perms: boolean = true;
 
     ngOnInit() {
-        if(Object.keys(this.value).length > 0 )
-            this.no_perms = false;
+
+        //Iterate through the perms object to find if user has any perms
+        Object.keys(this.value).forEach(key => {
+            let value = this.value[key];
+            if(value)
+                this.no_perms = false;
+            });
     }
 
 }

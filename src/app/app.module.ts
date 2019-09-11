@@ -42,6 +42,7 @@ import { UserService } from './services/user-service';
       useClass: AddHeaderInterceptor ,
       multi: true
     },
+    //{ provide: APP_BASE_HREF, useValue: '/pathobox/' },
     { provide: APP_BASE_HREF, useValue: '/' },
     AuthGuard,
     GeneralService,
@@ -49,4 +50,5 @@ import { UserService } from './services/user-service';
   ],
 })
 export class AppModule {
+  //window['_app_base']
 }

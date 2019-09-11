@@ -51,7 +51,9 @@ export class TablePermsEditorComponent extends DefaultEditor implements OnInit, 
     }
 
     Object.keys(this.perms).forEach(function(key,index) {
-      this.selectedItems.push(this.aux_dict[key]);
+      if(this.perms[key]){
+        this.selectedItems.push(this.aux_dict[key]);
+      }
     }, this);
   }
 
@@ -65,7 +67,7 @@ export class TablePermsEditorComponent extends DefaultEditor implements OnInit, 
     this.perms[item['id']] = true;
   }
   onItemDeSelect(item:any){
-    delete this.perms[item['id']];
+    this.perms[item['id']] = false;
   }
   onSelectAll(items: any){
     items.forEach(function (item, index) {
@@ -73,7 +75,9 @@ export class TablePermsEditorComponent extends DefaultEditor implements OnInit, 
       }, this);
   }
   onDeSelectAll(items: any){
-      this.perms = {};
+    items.forEach(function (item, index) {
+      this.perms[item['id']] = false;
+    }, this);
   }
 
 }

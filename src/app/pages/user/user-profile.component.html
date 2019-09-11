@@ -19,11 +19,22 @@
                 <div class="col-md-8">
                     <h5>Edit your profile</h5>
                     
-                        <div class="form-group">
-                            <label for="email">Email address</label>
-                            <input type="email" class="form-control" 
-                            id="email" placeholder="Email" name="email" [(ngModel)]="user.email">
+                        <div *ngIf="can_edit_mail else no_mail">
+                            <div class="form-group">
+                                <label for="email">Email address</label>
+                                <input type="email" class="form-control" 
+                                id="email" placeholder="Email" name="email" [(ngModel)]="user.email">
+                            </div>
                         </div>
+                        <ng-template #no_mail>
+                            <div class="form-group">
+                                <label for="email">Email address</label>
+                                <input type="email" class="form-control" 
+                                id="email" placeholder="Email" name="email" value="{{user.email}}" disabled>
+                                <span style="font-size: 0.75em; font-style: italic;">You cannot edit your mail since you logged in with a google account</span>
+                            </div>
+                        </ng-template>
+                        
                         <div class="form-group">
                             <label for="firstname">First Name</label>
                             <input type="text" class="form-control"

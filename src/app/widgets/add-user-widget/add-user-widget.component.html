@@ -1,10 +1,11 @@
 <nb-card>
   <nb-card-header>
-    Add users
     <div class="row">
-      <div class="col-sm-4" style="display: flex; justify-content: space-between;">
-        <button nbButton shape="rectangle" size="small" (click)="addUser()">Add Users</button>      
-        <input type="number" [(ngModel)]="usersToAdd" nbInput style="width: 50%;" placeholder="Users to add">  
+      <div class="col-sm-4" style="display: flex; justify-content: flex-start;">
+        <input type="number" [(ngModel)]="usersToAdd" nbInput placeholder="Users to add">  
+        <nb-actions size="large">
+          <nb-action style="vertical-align: middle;" icon="fas fa-plus-square" (click)="addUser()" nbTooltip="Add User" nbTooltipPlacement="top"></nb-action> 
+        </nb-actions>
       </div>
       <div class="col-sm-4">
         <angular2-multiselect 
@@ -26,6 +27,7 @@
     </div>
   </nb-card-header>
   <nb-card-body>
+    <hr style="margin-top: 0px;">
     <div class="row user-specs" style="margin-top: 1em;" *ngFor="let user of members; let i = index">
       <div class="input-group col-sm-4">
         <input type="email" [(ngModel)]="user.email" nbInput fullWidth placeholder="User Email">

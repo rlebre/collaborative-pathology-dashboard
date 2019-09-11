@@ -2,6 +2,10 @@ import { NbMenuItem } from '@nebular/theme';
 
 export const MENU_ITEMS: NbMenuItem[] = [
   {
+    title: 'Collaborative Tools',
+    group: true,
+  },
+  {
     title: 'Sessions',
     icon: 'fas fa-users',
     children: [
@@ -31,7 +35,22 @@ export const MENU_ITEMS: NbMenuItem[] = [
     ],
   },
   {
-    title: 'FEATURES',
+    title: 'Archive',
     group: true,
   },
+  {
+    title: 'Case Studies',
+    icon: 'fas fa-archive',
+    children: [
+      {
+        title: 'My Case Studies',
+        link: '/pages/archive/studies',
+      },
+      {
+        title: 'Upload new Study',
+        link: '/pages/archive/upload-studies',
+      },
+    ]
+  },
+  
 ];

@@ -9,7 +9,7 @@ import { UserService } from '../../services/user-service';
 
 
 @Component({
-  selector: 'nb-playground-oauth2-callback',
+  selector: 'nb-oauth2-callback',
   template: `
     <div>Authenticating</div>
   `,
@@ -29,14 +29,13 @@ export class OAuth2CallbackComponent implements OnDestroy {
           this.generalService.verifyOrCreateGoogleUser(authResult["response"]["access_token"]).subscribe(
             (userData: any) => {
               //handle results from backend here
-              console.log(userData);
               let user: UserLoggedIn = new UserLoggedIn(userData.email, userData.personal_information.firstname,
                 userData.personal_information.lastname, userData.photo_url, AccType.GOOGLE);
               authResult['token']['payload']['user'] = user;
               this.userService.setUserLoggedIn(user);
               this.tokenService.set(authResult.getToken());
               this.router.navigate(['/']);
-            }, 
+            },
             (error: any) => {
               console.log("could not connect to backend and retrieve data");
               console.log(error);

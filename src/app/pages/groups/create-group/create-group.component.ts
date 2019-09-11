@@ -44,7 +44,9 @@ export class CreateGroupComponent implements OnInit, OnDestroy {
     //Process the perms and roles
     if(this.members.length > 0){
       for(var i = 0; i<this.members.length; i++){
-        let perms = {};
+        //All by default are false
+        let perms = {"movementPermission": false, "flipPermission": false, "annotationPermission": false, "adjustmentPermission": false};
+        
         let role = "";
 
         for(var e = 0; e<this.user_perms[i].length; e++){

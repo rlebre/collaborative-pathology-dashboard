@@ -1,14 +1,14 @@
 <h1 id="title" class="title">Register</h1>
 
 <nb-alert *ngIf="showMessages.error && errors?.length && !submitted" outline="danger" role="alert">
-  <p class="alert-title"><b>Oh snap!</b></p>
+  <p class="alert-title"><b>Error!</b></p>
   <ul class="alert-message-list">
     <li *ngFor="let error of errors" class="alert-message">{{ error }}</li>
   </ul>
 </nb-alert>
 
 <nb-alert *ngIf="showMessages.success && messages?.length && !submitted" outline="success" role="alert">
-  <p class="alert-title"><b>Hooray!</b></p>
+  <p class="alert-title"><b>Success!</b></p>
   <ul class="alert-message-list">
     <li *ngFor="let message of messages" class="alert-message">{{ message }}</li>
   </ul>
@@ -21,23 +21,23 @@
       <div class="col-sm-6">
           <label class="label" for="input-name">First name:</label>
           <input nbInput
-                 [(ngModel)]="user.fullName"
-                 #fullName="ngModel"
+                 [(ngModel)]="user.givenName"
+                 #givenName="ngModel"
                  id="input-name"
-                 name="fullName"
-                 placeholder="Full name"
+                 name="givenName"
+                 placeholder="First name"
                  autofocus
                  fullWidth
                  [status]="email.dirty ? (email.invalid  ? 'danger' : 'success') : ''"
-                 [required]="getConfigValue('forms.validation.fullName.required')"
-                 [minlength]="getConfigValue('forms.validation.fullName.minLength')"
-                 [maxlength]="getConfigValue('forms.validation.fullName.maxLength')"
-                 [attr.aria-invalid]="fullName.invalid && fullName.touched ? true : null">
-          <ng-container *ngIf="fullName.invalid && fullName.touched">
-            <p class="error-message" *ngIf="fullName.errors?.required">
+                 [required]="getConfigValue('forms.validation.givenName.required')"
+                 [minlength]="getConfigValue('forms.validation.givenName.minLength')"
+                 [maxlength]="getConfigValue('forms.validation.givenName.maxLength')"
+                 [attr.aria-invalid]="givenName.invalid && givenName.touched ? true : null">
+          <ng-container *ngIf="givenName.invalid && givenName.touched">
+            <p class="error-message" *ngIf="givenName.errors?.required">
               First is required!
             </p>
-            <p class="error-message" *ngIf="fullName.errors?.minlength || fullName.errors?.maxlength">
+            <p class="error-message" *ngIf="givenName.errors?.minlength || givenName.errors?.maxlength">
               First name should contains
               from {{getConfigValue('forms.validation.fullName.minLength')}}
               to {{getConfigValue('forms.validation.fullName.maxLength')}}
@@ -46,25 +46,25 @@
           </ng-container>
       </div>
       <div class="col-sm-6">
-          <label class="label" for="input-name">Last name:</label>
+          <label class="label" for="last-name">Last name:</label>
           <input nbInput
-                 [(ngModel)]="user.fullName"
-                 #fullName="ngModel"
-                 id="input-name"
-                 name="fullName"
-                 placeholder="Full name"
+                 [(ngModel)]="user.familyName"
+                 #familyName="ngModel"
+                 id="last-name"
+                 name="familyName"
+                 placeholder="Last name"
                  autofocus
                  fullWidth
                  [status]="email.dirty ? (email.invalid  ? 'danger' : 'success') : ''"
-                 [required]="getConfigValue('forms.validation.fullName.required')"
-                 [minlength]="getConfigValue('forms.validation.fullName.minLength')"
-                 [maxlength]="getConfigValue('forms.validation.fullName.maxLength')"
-                 [attr.aria-invalid]="fullName.invalid && fullName.touched ? true : null">
-          <ng-container *ngIf="fullName.invalid && fullName.touched">
-            <p class="error-message" *ngIf="fullName.errors?.required">
+                 [required]="getConfigValue('forms.validation.familyName.required')"
+                 [minlength]="getConfigValue('forms.validation.familyName.minLength')"
+                 [maxlength]="getConfigValue('forms.validation.familyName.maxLength')"
+                 [attr.aria-invalid]="familyName.invalid && familyName.touched ? true : null">
+          <ng-container *ngIf="familyName.invalid && familyName.touched">
+            <p class="error-message" *ngIf="familyName.errors?.required">
               First name is required!
             </p>
-            <p class="error-message" *ngIf="fullName.errors?.minlength || fullName.errors?.maxlength">
+            <p class="error-message" *ngIf="familyName.errors?.minlength || familyName.errors?.maxlength">
               First name should contains
               from {{getConfigValue('forms.validation.fullName.minLength')}}
               to {{getConfigValue('forms.validation.fullName.maxLength')}}
@@ -160,7 +160,8 @@
           fullWidth
           status="success"
           [disabled]="submitted || !form.valid"
-          [class.btn-pulse]="submitted">
+          [class.btn-pulse]="submitted"
+          (click)="registerUser()">
     Register
   </button>
 </form>

@@ -9,6 +9,8 @@ import { UserProfileComponent } from './user/user-profile.component';
 import { TableLinkComponent } from './extra-table-components/table-link.component';
 import { TableLinkSessionComponent } from './extra-table-components/table-link-session.component';
 
+import { ToastrService } from '../services/toastr.service';
+
 const PAGES_COMPONENTS = [
   PagesComponent,
   UserProfileComponent,
@@ -22,6 +24,7 @@ const ENTRY_COMPONENTS = [
 ];
 
 const PROVIDERS = [
+  ToastrService,
 ]
 
 

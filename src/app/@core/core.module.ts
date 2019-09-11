@@ -1,6 +1,6 @@
 import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NbAuthModule, NbDummyAuthStrategy, NbPasswordAuthStrategy, NbOAuth2AuthStrategy, NbOAuth2ResponseType } from '@nebular/auth';
+import { NbAuthModule, NbDummyAuthStrategy, NbPasswordAuthStrategy, NbOAuth2AuthStrategy, NbOAuth2ResponseType, NbAuthJWTToken } from '@nebular/auth';
 import { NbSecurityModule, NbRoleProvider } from '@nebular/security';
 import { of as observableOf } from 'rxjs';
 
@@ -51,8 +51,9 @@ const DATA_SERVICES = [
 
 const GOOGLE_CLIENT_ID = "664542270710-reqok1ddbdttf4t92viecuoa5qjdng6l.apps.googleusercontent.com"; 
 const GOOGLE_CLIENT_SECRET = "JEKt-guF-R2kIeMyaCWqMbcq"; 
-const url_callback: string = "http://mednat.ieeta.pt:8295/auth/google-callback";
-
+//const url_callback: string = "http://demo.dicoogle.com/pathobox/auth/google-callback";
+const url_callback: string = "http://mednat.ieeta.pt:8296/auth/google-callback";
+const backend_url: string = "http://mednat.ieeta.pt:8297";
 
 export class NbSimpleRoleProvider extends NbRoleProvider {
   getRole() {
@@ -67,21 +68,29 @@ export const NB_CORE_PROVIDERS = [
   ...NbAuthModule.forRoot({
 
     strategies: [
-      NbDummyAuthStrategy.setup({
-        name: 'dummy',
-        delay: 3000,
-      }),
       NbPasswordAuthStrategy.setup({
         name: 'email',
-        baseEndpoint: 'http://example.com/app-api/v1',
-            login: {
-              endpoint: '/api/auth/login',
-              method: 'post',
-            },
-            register: {
-              endpoint: '/api/auth/register',
-              method: 'post',
-            },
+        baseEndpoint: backend_url,
+        token: {
+          class: NbAuthJWTToken,
+          key: 'token',
+        },
+        login: {
+          endpoint: '/auth/local',
+          method: 'post',
+          redirect: {
+            success: '/', // welcome page path
+            failure: null, // stay on the same page
+          },
+        },
+        register: {
+          endpoint: '/registuser',
+          method: 'post',
+          redirect: {
+            success: '/', // welcome page path
+            failure: null, // stay on the same page
+          },
+        },
       }),
       NbOAuth2AuthStrategy.setup({
         name: 'google',

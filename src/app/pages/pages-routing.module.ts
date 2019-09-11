@@ -31,6 +31,12 @@ const routes: Routes = [{
     },
 
     {
+      path: 'archive',
+      canActivate: [AuthGuard],
+      loadChildren: './archive/archive.module#ArchiveModule',
+    },
+    
+    {
       path: '',
       redirectTo: 'sessions',
       pathMatch: 'full'

@@ -2,7 +2,7 @@ import { Component, Input, Inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { NbMenuService, NbSidebarService } from '@nebular/theme';
-import { NbAuthResult, NbAuthService, NbAuthOAuth2Token } from '@nebular/auth';
+import { NbAuthResult, NbAuthService, NbAuthOAuth2Token, NbAuthToken } from '@nebular/auth';
 
 import { UserData } from '../../../@core/data/users';
 import { AnalyticsService } from '../../../@core/utils';
@@ -22,6 +22,7 @@ export class HeaderComponent implements OnInit {
 
   user: any;
   loggedIn: boolean; 
+  isGoogle: boolean = false;
 
   userMenu = [{ title: 'Profile' }, { title: 'Log out' }];
 
@@ -40,33 +41,26 @@ export class HeaderComponent implements OnInit {
 
     this.loggedIn = false;
 
-    /*
-    this.authService.onAuthenticationChange()
-      .pipe(
-        tap(authenticated => {
-          this.loggedIn = authenticated;
-          console.log("ashdbasjdbjhasdbsa");
-          console.log(this.loggedIn); 
-        }),
-      );
-      */
-
-    this.authService.onTokenChange()
-      .subscribe((token: NbAuthOAuth2Token) => {
-        if (token && token.isValid()) {
-          this.loggedIn = true;
-          //this.user = JSON.parse(sessionStorage.getItem('user'));
-        }
-        else{
-          this.loggedIn = false;
-        }
-      });
-
-      //If user is logged in, token exists therefore we can get his name and picture
-      if(this.loggedIn){
-        this.user = this.authService.getToken()['value']['payload']['user'];
-        console.log(this.user);
+    this.authService.onTokenChange().subscribe((token: NbAuthToken) => {
+      if (token && token.isValid()) {
+        this.loggedIn = true;
+        if (token instanceof NbAuthOAuth2Token){
+          this.isGoogle = true;
+        }        
+        //this.user = JSON.parse(sessionStorage.getItem('user'));
       }
+      else{
+        this.loggedIn = false;
+      }
+    });
+
+    //If user is logged in, token exists therefore we can get his name and picture
+    if(this.loggedIn){
+      if(this.isGoogle)
+        this.user = this.authService.getToken()['value']['payload']['user'];
+      else
+        this.user = this.authService.getToken()['value']['payload'];
+    }
 
     this.menuService.onItemClick()
       .pipe(
