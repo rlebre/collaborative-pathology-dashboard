@@ -28,6 +28,9 @@ export class CreateSessionComponent implements OnDestroy, OnInit {
   userTags: string[] = [];
   tagInserted: string = "";
 
+  linearMode = true;
+  try = false;
+
   images :CaseStudy[];
   selectedImage: CaseStudy;
   imageSelected: boolean;
@@ -163,10 +166,8 @@ export class CreateSessionComponent implements OnDestroy, OnInit {
   }
 
   ngOnDestroy() {
-
     //Destroying CKEDITOR Iframe to avoid error propagation
     this.destroyEditor();
-    
   }
 
   public destroyEditor(): void {
@@ -197,8 +198,14 @@ export class CreateSessionComponent implements OnDestroy, OnInit {
   }
 
   onRowSelect(event) {
-    this.selectedImage = event.data;
-    this.imageSelected = true;
+    if(this.selectedImage == event.data){
+      this.imageSelected = false;
+      this.selectedImage = null;
+    }
+    else{
+      this.selectedImage = event.data;
+      this.imageSelected = true;
+    }
   }
 
   createSession(){

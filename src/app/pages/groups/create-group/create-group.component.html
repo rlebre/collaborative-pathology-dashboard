@@ -2,19 +2,19 @@
   <div class="col-md-12">
     <h2>Create Group</h2>
     <label for="groupName" class="form-control-label">Group Name</label>
-    <input type="text" [(ngModel)]="groupName" nbInput fullWidth placeholder="Group Name" name="groupName">
+    <input [(ngModel)]="groupName" nbInput fullWidth autofocus required
+    placeholder="Group Name" name="groupName" #name="ngModel" [minlength]="3"
+    [status]="name.dirty ? (name.invalid ? 'danger' : 'success') : ''"
+    [attr.aria-invalid]="name.invalid && name.touched ? true : false"
+    >
   </div>
   <div class="col-md-12" style="margin-top: 1em;">
     <h4>Group Users</h4>
-    <ngx-add-user-widget [members]="members" [user_perms]="user_perms" [user_roles]="user_roles"></ngx-add-user-widget>
+    <ngx-add-user-widget [members]="members" [user_perms]="user_perms" [minimum_users]="minimum_users" [user_roles]="user_roles"></ngx-add-user-widget>
   </div>
 </div>
 
-<button nbButton shape="rectangle" size="medium" (click)="sendGroup()">Create Group</button>
-
-<nb-alert status="warning" *ngIf="fewUsers" closable (close)="onCloseWarn()">
-  Groups must at least have one member !
-</nb-alert>
+<button nbButton shape="rectangle" size="medium" (click)="sendGroup()" [disabled]="!widget.usersForm.valid || name.invalid">Create Group</button>
 
 <nb-alert status="success" *ngIf="groupCreatedSuccess" closable>
   Success you created a group.

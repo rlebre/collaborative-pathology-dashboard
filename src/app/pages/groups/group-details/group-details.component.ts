@@ -66,7 +66,6 @@ export class GroupDetailsComponent implements OnInit, OnDestroy {
 
   saveGroup(){
     this.group.setGroupName(this.groupName);
-    console.log(this.members);
     this.group.setUsers(this.members);
     this.groupsService.updateGroup(this.group).subscribe(
       (res: any) => {

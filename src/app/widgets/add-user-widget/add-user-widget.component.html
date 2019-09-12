@@ -28,34 +28,46 @@
   </nb-card-header>
   <nb-card-body>
     <hr style="margin-top: 0px;">
-    <div class="row user-specs" style="margin-top: 1em;" *ngFor="let user of members; let i = index">
-      <div class="input-group col-sm-4">
-        <input type="email" [(ngModel)]="user.email" nbInput fullWidth placeholder="User Email">
-      </div>
-      <div class="col-sm-4">
-        <angular2-multiselect 
-        [data]="dropdownPermsList"
-        [(ngModel)]="user_perms[i]"
-        [settings]="dropdownPermsSettings"
-        >
-        </angular2-multiselect>  
-      </div>
-
-      <div class="col-sm-3">
+    <form #usersForm="ngForm">
+      <div class="row user-specs" style="margin-top: 1em;" *ngFor="let user of members; let i = index">
+        <div class="input-group col-sm-4">
+          <input #email="ngModel" [name]="'email' + members.length" [(ngModel)]="user.email" nbInput fullWidth required
+          placeholder="User Email" [minlength]="3" pattern=".+@.+..+" [status]="email.dirty ? (email.invalid  ? 'danger' : 'success'): ''"
+          [attr.aria-invalid]="email.invalid ? true : null">
+        </div>
+        <div class="col-sm-4">
           <angular2-multiselect 
-          [data]="dropdownRolesList"
-          [(ngModel)]="user_roles[i]"
-          [settings]="dropdownRolesSettings"
+          [data]="dropdownPermsList"
+          [(ngModel)]="user_perms[i]"
+          [settings]="dropdownPermsSettings"
+          name="'perms' + members.length"
           >
           </angular2-multiselect>  
         </div>
-
-      <div class="col-sm-1" style="display: flex; justify-content: center;">
-        <nb-actions size="small">   
-          <nb-action icon="nb-close" (click)="removeUser(i)" nbTooltip="Remove User" nbTooltipPlacement="top"></nb-action> 
-        </nb-actions>
+  
+        <div class="col-sm-3">
+            <angular2-multiselect 
+            [data]="dropdownRolesList"
+            [(ngModel)]="user_roles[i]"
+            [settings]="dropdownRolesSettings"
+            name="'role' + members.length"
+            >
+            </angular2-multiselect>  
+          </div>
+  
+        <div class="col-sm-1" style="display: flex; justify-content: center;">
+          <nb-actions size="small">   
+            <nb-action icon="nb-close" (click)="removeUser(i)" nbTooltip="Remove User" nbTooltipPlacement="top"></nb-action> 
+          </nb-actions>
+        </div>
+        
       </div>
-      
-    </div>
+    </form>
+    
+
+    <nb-alert *ngIf="few_users" outline="warning" style="margin-top: 1em;" closable (close)="onCloseWarn()" role="alert">
+      <span class="alert-title"><b>Error!</b> Groups must at least have one member !</span>
+    </nb-alert>
+
   </nb-card-body>
 </nb-card>

@@ -74,7 +74,6 @@ export class SessionDetailsComponent implements OnDestroy, OnInit {
 
     this.sessionService.getSessionDetails(this.sesssionHash).subscribe(
       (res: any) => {
-        console.log(res);
         this.session = res.data;
         this.members = this.session.participatingUsers;
         this.links = res.urls;
@@ -146,10 +145,6 @@ export class SessionDetailsComponent implements OnDestroy, OnInit {
       },
     });
 
-  }
-
-  try(){
-    console.log("Hi");
   }
 
   public destroyEditor(): void {

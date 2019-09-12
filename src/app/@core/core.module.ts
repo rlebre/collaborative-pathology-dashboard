@@ -51,8 +51,11 @@ const DATA_SERVICES = [
 
 const GOOGLE_CLIENT_ID = "664542270710-reqok1ddbdttf4t92viecuoa5qjdng6l.apps.googleusercontent.com"; 
 const GOOGLE_CLIENT_SECRET = "JEKt-guF-R2kIeMyaCWqMbcq"; 
+
 //const url_callback: string = "http://demo.dicoogle.com/pathobox/auth/google-callback";
 const url_callback: string = "http://mednat.ieeta.pt:8296/auth/google-callback";
+
+//const backend_url: string = "http://demo.dicoogle.com/pathobox-api";
 const backend_url: string = "http://mednat.ieeta.pt:8297";
 
 export class NbSimpleRoleProvider extends NbRoleProvider {

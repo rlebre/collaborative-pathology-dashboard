@@ -4,11 +4,16 @@
   </nb-card-header>
   <nb-card-body>
     <div style="margin-bottom: 10px; font-size: 0.7em;">
-      <span>Steps marked with * are obligatory</span>
+      <span>Highlighted fields are obligatory</span>
     </div>
     
-    <nb-stepper orientation="horizontal">
-      <nb-step [label]="labelOne">
+    <nb-stepper orientation="horizontal" [linear]="linearMode">
+      <nb-step [label]="labelOne" [stepControl]="imageForm">
+        <form #imageForm="ngForm" class="step-container">
+            <input type="hidden" required nbInput [(ngModel)]="selectedImage"
+                  #name="ngModel" name="selectedImage"
+                  [status]="name.invalid ? 'danger' : ''">
+          </form>
         <ng-template #labelOne>Pick an image</ng-template>
         <h4>Choose a case study</h4> 
         <ng2-smart-table [settings]="settings" [source]="source" (userRowSelect)="onRowSelect($event)">
@@ -17,12 +22,16 @@
         <button nbButton disabled nbStepperNext>prev</button>
         <button nbButton [disabled]="!imageSelected" nbStepperNext>next</button>
       </nb-step>
-      <nb-step [label]="labelTwo">
-        <ng-template #labelTwo>Give it a name</ng-template>
+      <nb-step [label]="labelTwo" [stepControl]="nameForm">
+        <ng-template #labelTwo >Give it a name</ng-template>
         <div class="row">
           <div class="col-sm-6">
-            <label for="sesionName">Session Name</label>
-            <input type="text" [(ngModel)]="session.name" nbInput fullWidth name="sessionName" placeholder="Session Name">
+            <form #nameForm="ngForm" class="step-container">
+              <label for="sessionName">Session Name</label>
+              <input type="text" placeholder="Session Name" required nbInput fullWidth [(ngModel)]="session.name"
+                    #name="ngModel" name="sessionName" id="sessionName"
+                    [status]="name.invalid ? 'danger' : ''">
+            </form>
             <input type="text" [(ngModel)]="tagInserted" nbInput placeholder="Add a custom tag">
             <button nbButton shape="rectangle" size="tiny" (click)="addTag()">+</button>
           </div>
