@@ -88,7 +88,6 @@ export class SessionDetailsComponent implements OnDestroy, OnInit {
           this.dropdown_tagsList.push(obj);
           this.selectedTags.push(obj);
         }
-        console.log(this.session.email_message);
         //window['CKEDITOR'].instances['editor1'].setData(this.session.email_message);
 
         

@@ -11,8 +11,6 @@ export class TableUsersEditorViewComponent extends DefaultEditor implements OnIn
 
     ngOnInit() {
 
-        console.log("hello");
-
     }
 
 }

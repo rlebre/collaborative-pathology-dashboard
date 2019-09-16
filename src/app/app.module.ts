@@ -37,11 +37,11 @@ import { UserService } from './services/user-service';
   ],
   bootstrap: [AppComponent],
   providers: [
-    {
+    /*{
       provide: HTTP_INTERCEPTORS,
       useClass: AddHeaderInterceptor ,
       multi: true
-    },
+    },*/
     //{ provide: APP_BASE_HREF, useValue: '/pathobox/' },
     { provide: APP_BASE_HREF, useValue: '/' },
     AuthGuard,

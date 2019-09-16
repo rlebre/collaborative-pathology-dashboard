@@ -22,7 +22,6 @@ export class NgxRegisterComponent extends NbRegisterComponent {
       this.token = result.getToken();
       if (result.isSuccess()) {
         let resp = result.getResponse();
-        console.log(resp);
         //The request had no issues but the backend pointed somemething wrong with the data
         if(resp['body']['failure']){
           this.errors.push(resp['body']['error']);

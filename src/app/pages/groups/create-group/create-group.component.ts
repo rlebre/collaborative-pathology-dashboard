@@ -31,12 +31,7 @@ export class CreateGroupComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngAfterViewInit() {
   }
-
-  try(){
-    console.log(this.name.valid);
-    console.log(this.users_valid)
-  }
-
+  
   constructor(private groupsService: GroupsService,
               private toastrService: ToastrService) {
     

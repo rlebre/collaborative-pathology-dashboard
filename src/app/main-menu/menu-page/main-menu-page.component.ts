@@ -13,8 +13,6 @@ export class MainMenuPageComponent implements OnDestroy, OnInit {
   }
   ngOnInit() {
 
-    console.log("aha");
-
   }
 
   ngOnDestroy() {
